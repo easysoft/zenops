@@ -5,3 +5,6 @@
 2. Download docker-compose file from [here](https://raw.githubusercontent.com/aaronchen2k/zenops/master/docker-compose.yml);
 3. Exec "docker-compose up -d; docker-compose logs -f;".
 4. Open http://localhost:50080, login with account admin/123456.
+
+## How to change ZenTaoPMS port
+Open docker-compose.yaml, change 50080 to the port you want.
