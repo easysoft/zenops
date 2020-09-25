@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# /z/scripts/wait-for-mysql.sh zenmysql:5432 -t 10;
+# /z/scripts/wait-for.sh zenops-mysql:3306 -t 10;
 
 echo 'start pms by docker-compose ...';
 

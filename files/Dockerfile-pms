@@ -7,8 +7,8 @@ RUN apt-get install apache2 php7.2 php7.2-mysql php7.2-curl php7.2-mbstring -y
 
 RUN a2enmod rewrite
 
-# ADD res/wait-for-mysql.sh /z/scripts/
-# RUN chmod +x /z/scripts/wait-for-mysql.sh
+# ADD res/wait-for.sh /z/scripts/
+# RUN chmod +x /z/scripts/wait-for.sh
 
 ADD res/launch-pms.sh /z/scripts/
 RUN chmod +x /z/scripts/launch-pms.sh
