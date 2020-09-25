@@ -1,0 +1,23 @@
+version: '2'
+services:
+
+  zenops-mysql:
+    image: registry.cn-shanghai.aliyuncs.com/ngtesting/zenops-mysql:1.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=P2ssw0rd
+    ports:
+      - "53306:3306"
+    expose:
+      - "53306"
+
+  zenops-pms:
+    image: registry.cn-shanghai.aliyuncs.com/ngtesting/zenops-pms:1.0
+    depends_on:
+      - zenops-mysql
+    ports:
+      - "50080:80"
+    expose:
+      - "50080"
+    tty: true
+    stdin_open: true
+    command: sh /z/scripts/launch-pms.sh
