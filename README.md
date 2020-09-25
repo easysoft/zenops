@@ -1,5 +1,4 @@
 # zenops
-Run below command to start ZenTaoPMS.
 
 ## Quick start
 1. Install docker and docker-compose;
