@@ -7,4 +7,4 @@
 4. Open http://localhost:50080, login with account admin/123456.
 
 ## How to change ZenTaoPMS port
-Open docker-compose.yaml, change 50080 to the port you want.
+Open docker-compose.yaml, change 50080 to anything you want.
