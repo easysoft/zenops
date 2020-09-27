@@ -1,0 +1,970 @@
+{
+	"info": {
+		"_postman_id": "d7ddff5d-c84c-4de5-9033-d4bc1740858a",
+		"name": "GitLab",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Private-Token",
+						"type": "text",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/users",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Detail",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Private-Token",
+						"type": "text",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/users/1",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Creation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Private-Token",
+						"type": "text",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/users?username=user_{{$randomInt}}&admin=true&name=user_{{$randomInt}}&email=user_{{$randomInt}}@ngtesting.com&reset_password=true",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"users"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user_{{$randomInt}}"
+						},
+						{
+							"key": "admin",
+							"value": "true"
+						},
+						{
+							"key": "name",
+							"value": "user_{{$randomInt}}"
+						},
+						{
+							"key": "email",
+							"value": "user_{{$randomInt}}@ngtesting.com"
+						},
+						{
+							"key": "reset_password",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Porject List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Private-Token",
+						"value": "QqWL6nhZ6HDUHU8xwTuy",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Group List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Private-Token",
+						"value": "QqWL6nhZ6HDUHU8xwTuy",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/groups",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"groups"
+					],
+					"query": [
+						{
+							"key": "Private-Token",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Group Epic List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Private-Token",
+						"value": "QqWL6nhZ6HDUHU8xwTuy",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/groups",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"groups"
+					],
+					"query": [
+						{
+							"key": "Private-Token",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Issue List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Private-Token",
+						"value": "QqWL6nhZ6HDUHU8xwTuy",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/1/issues?=",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"1",
+						"issues"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Issues Detail",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Private-Token",
+						"type": "text",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/1/issues/3",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"1",
+						"issues",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Issue Creation",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Private-Token",
+						"type": "text",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Issue_{{$randomInt}}",
+							"type": "text"
+						},
+						{
+							"key": "labels",
+							"value": "bug",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/1/issues",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"1",
+						"issues"
+					],
+					"query": [
+						{
+							"key": "private_token",
+							"value": "QqWL6nhZ6HDUHU8xwTuy",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Branch List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"equals": true,
+						"key": "Private-Token",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/3/repository/branches",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"3",
+						"repository",
+						"branches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tag List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"equals": true,
+						"key": "Private-Token",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/3/repository/tags",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"3",
+						"repository",
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Commit List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "PRIVATE-TOKEN",
+						"value": "QqWL6nhZ6HDUHU8xwTuy",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/1/repository/commits?Private-Token=",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"1",
+						"repository",
+						"commits"
+					],
+					"query": [
+						{
+							"key": "Private-Token",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Commits Detail",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "PRIVATE-TOKEN",
+						"type": "text",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/1/repository/commits/97c49d7071e73494ad0832480836d4edebb55123",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"1",
+						"repository",
+						"commits",
+						"97c49d7071e73494ad0832480836d4edebb55123"
+					],
+					"query": [
+						{
+							"key": "Private-Token",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Commits Diff",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "PRIVATE-TOKEN",
+						"type": "text",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/1/repository/commits/97c49d7071e73494ad0832480836d4edebb55123/diff",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"1",
+						"repository",
+						"commits",
+						"97c49d7071e73494ad0832480836d4edebb55123",
+						"diff"
+					],
+					"query": [
+						{
+							"key": "Private-Token",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Commits Comments",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "PRIVATE-TOKEN",
+						"type": "text",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/1/repository/commits/97c49d7071e73494ad0832480836d4edebb55123/comments",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"1",
+						"repository",
+						"commits",
+						"97c49d7071e73494ad0832480836d4edebb55123",
+						"comments"
+					],
+					"query": [
+						{
+							"key": "Private-Token",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hook List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"equals": true,
+						"key": "Private-Token",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/1/hooks",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"1",
+						"hooks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trigger List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"equals": true,
+						"key": "Private-Token",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/3/triggers",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"3",
+						"triggers"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "741f0baaca5ea9c2dfa03af824eb04",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trigger Detail",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"equals": true,
+						"key": "Private-Token",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/3/triggers/1",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"3",
+						"triggers",
+						"1"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "741f0baaca5ea9c2dfa03af824eb04",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trigger Creation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"equals": true,
+						"key": "Private-Token",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/3/triggers?description=trigger_{{$randomInt}}",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"3",
+						"triggers"
+					],
+					"query": [
+						{
+							"key": "description",
+							"value": "trigger_{{$randomInt}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trigger Build",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Private-Token",
+						"type": "text",
+						"value": "QqWL6nhZ6HDUHU8xwTuy",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Issue{{$randomInt}}",
+							"type": "text"
+						},
+						{
+							"key": "labels",
+							"value": "bug",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/3/trigger/pipeline?token=741f0baaca5ea9c2dfa03af824eb04&ref=master",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"3",
+						"trigger",
+						"pipeline"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "741f0baaca5ea9c2dfa03af824eb04"
+						},
+						{
+							"key": "ref",
+							"value": "master"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pipelines List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"equals": true,
+						"key": "Private-Token",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/3/pipelines",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"3",
+						"pipelines"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "741f0baaca5ea9c2dfa03af824eb04",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pipelines Detail",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"equals": true,
+						"key": "Private-Token",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/3/pipelines/20",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"3",
+						"pipelines",
+						"20"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "741f0baaca5ea9c2dfa03af824eb04",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pipeline Job List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"equals": true,
+						"key": "Private-Token",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/3/pipelines/17/jobs",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"3",
+						"pipelines",
+						"17",
+						"jobs"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "741f0baaca5ea9c2dfa03af824eb04",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Job List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"equals": true,
+						"key": "Private-Token",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/3/jobs",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"3",
+						"jobs"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "741f0baaca5ea9c2dfa03af824eb04",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Job Detail",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"equals": true,
+						"key": "Private-Token",
+						"value": "QqWL6nhZ6HDUHU8xwTuy"
+					}
+				],
+				"url": {
+					"raw": "http://172.16.13.133/api/v4/projects/3/jobs/25",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"13",
+						"133"
+					],
+					"path": [
+						"api",
+						"v4",
+						"projects",
+						"3",
+						"jobs",
+						"25"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "741f0baaca5ea9c2dfa03af824eb04",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
