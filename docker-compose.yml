@@ -19,7 +19,7 @@ services:
     command: sh /z/scripts/launch-pms.sh
 
   zenops-gitlab:
-    image: gitlab/gitlab-ee:latest
+    image: gitlab/gitlab-ee:13.4.1-ee.0
     restart: always
     hostname: 'localhost'
     environment:
@@ -75,17 +75,27 @@ services:
       SONARQUBE_JDBC_PASSWORD: sonar
       SONARQUBE_JDBC_URL: jdbc:postgresql://zenops-sonar-postgres:55432/sonar
 
+  zenops-artifactory:
+    image: docker.bintray.io/jfrog/artifactory-oss:latest
+    container_name: zenops-artifactory
+    volumes:
+      - $ZENOPS_HOME/artifactory/var/:/var/opt/jfrog/artifactory
+    restart: always
+    ports:
+      - 58082:8082 # for router communication
+      - 58081:8081 # for artifactory communication
+
   zenops-artifactory-postgres:
     image: docker.bintray.io/postgres:10.13-alpine
     container_name: zenops-artifactory-postgres
     environment:
       - POSTGRES_DB=artifactory
       - POSTGRES_USER=artifactory
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=P2ssw0rd
     ports:
       - 55433:5432
     volumes:
-      - $ZENOPS_HOME/artifactory/postgres_data:/var/lib/postgresql/data
+      - $ZENOPS_HOME/artifactory-jcr/postgres_data:/var/lib/postgresql/data
 #      - /etc/localtime:/etc/localtime:ro
     restart: always
     logging:
@@ -99,11 +109,11 @@ services:
         soft: 32000
         hard: 40000
 
-  zenops-artifactory:
+  zenops-artifactory-jcr:
     image: docker.bintray.io/jfrog/artifactory-jcr:7.7.8
-    container_name: zenops-artifactory
+    container_name: zenops-artifactory-jcr
     volumes:
-      - $ZENOPS_HOME/artifactory/artifactory_data:/var/opt/jfrog/artifactory
+      - $ZENOPS_HOME/artifactory-jcr/artifactory_data:/var/opt/jfrog/artifactory
 #      - /etc/localtime:/etc/localtime:ro
     restart: always
     depends_on:
@@ -118,7 +128,7 @@ services:
       - JF_SHARED_DATABASE_TYPE=postgresql
       # The following must match the POSTGRES_USER and POSTGRES_PASSWORD values passed to PostgreSQL
       - JF_SHARED_DATABASE_USERNAME=artifactory
-      - JF_SHARED_DATABASE_PASSWORD=password
+      - JF_SHARED_DATABASE_PASSWORD=P2ssw0rd
       - JF_SHARED_DATABASE_URL=jdbc:postgresql://zenops-artifactory-postgres:5432/artifactory
       - JF_SHARED_DATABASE_DRIVER=org.postgresql.Driver
       - JF_SHARED_NODE_IP=127.0.0.1
@@ -126,8 +136,8 @@ services:
       - JF_SHARED_NODE_NAME=localhost
       - JF_ROUTER_ENTRYPOINTS_EXTERNALPORT=8082
     ports:
-      - 8082:8082 # for router communication
-      - 8081:8081 # for artifactory communication
+      - 58084:8082 # for router communication
+      - 58083:8081 # for artifactory communication
     logging:
       driver: json-file
       options:
