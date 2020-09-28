@@ -34,3 +34,102 @@ services:
       - '$ZENOPS_HOME/gitlab/logs:/var/log/gitlab'
       - '$ZENOPS_HOME/gitlab/data:/var/opt/gitlab'
       - '$ZENOPS_HOME/gitlab/letsencrypt:/letsencrypt'
+
+  zenops-sonar-postgres:
+    image: postgres:12.3
+    restart: always
+    container_name: zenops-sonar-postgres
+    ports:
+      - 55432:55432
+    volumes:
+      - $ZENOPS_HOME/sonar/postgres/postgresql:/var/lib/postgresql
+      - $ZENOPS_HOME/sonar/postgres/data:/var/lib/postgresql/data
+#      - /etc/localtime:/etc/localtime:ro
+    environment:
+      TZ: Asia/Shanghai
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+      POSTGRES_DB: sonar
+
+  zenops-sonar:
+    image: sonarqube:7.9.4-community
+    container_name: zenops-sonar
+    depends_on:
+      - zenops-sonar-postgres
+    volumes:
+      - $ZENOPS_HOME/sonar/sonarqube/extensions:/opt/sonarqube/extensions
+      - $ZENOPS_HOME/sonar/sonarqube/logs:/opt/sonarqube/logs
+      - $ZENOPS_HOME/sonar/sonarqube/data:/opt/sonarqube/data
+      - $ZENOPS_HOME/sonar/sonarqube/conf:/opt/sonarqube/conf
+#      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 59000:9000
+    command:
+      - -Dsonar.ce.javaOpts=-Xmx2048m
+      - -Dsonar.web.javaOpts=-Xmx2048m
+      - -Dsonar.web.context=/
+      - -Dsonar.core.serverBaseURL=http://localhost:59000
+    environment:
+      TZ: Asia/Shanghai
+      SONARQUBE_JDBC_USERNAME: sonar
+      SONARQUBE_JDBC_PASSWORD: sonar
+      SONARQUBE_JDBC_URL: jdbc:postgresql://zenops-sonar-postgres:55432/sonar
+
+  zenops-artifactory-postgres:
+    image: docker.bintray.io/postgres:10.13-alpine
+    container_name: zenops-artifactory-postgres
+    environment:
+      - POSTGRES_DB=artifactory
+      - POSTGRES_USER=artifactory
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 55433:5432
+    volumes:
+      - $ZENOPS_HOME/artifactory/postgres_data:/var/lib/postgresql/data
+#      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "10"
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 32000
+        hard: 40000
+
+  zenops-artifactory:
+    image: docker.bintray.io/jfrog/artifactory-jcr:7.7.8
+    container_name: zenops-artifactory
+    volumes:
+      - $ZENOPS_HOME/artifactory/artifactory_data:/var/opt/jfrog/artifactory
+#      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    depends_on:
+      - zenops-artifactory-postgres
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 32000
+        hard: 40000
+    environment:
+      - ENABLE_MIGRATION=y
+      - JF_SHARED_DATABASE_TYPE=postgresql
+      # The following must match the POSTGRES_USER and POSTGRES_PASSWORD values passed to PostgreSQL
+      - JF_SHARED_DATABASE_USERNAME=artifactory
+      - JF_SHARED_DATABASE_PASSWORD=password
+      - JF_SHARED_DATABASE_URL=jdbc:postgresql://zenops-artifactory-postgres:5432/artifactory
+      - JF_SHARED_DATABASE_DRIVER=org.postgresql.Driver
+      - JF_SHARED_NODE_IP=127.0.0.1
+      - JF_SHARED_NODE_ID=localhost
+      - JF_SHARED_NODE_NAME=localhost
+      - JF_ROUTER_ENTRYPOINTS_EXTERNALPORT=8082
+    ports:
+      - 8082:8082 # for router communication
+      - 8081:8081 # for artifactory communication
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "10"
