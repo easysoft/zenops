@@ -24,16 +24,28 @@ services:
     hostname: 'localhost'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://localhost:58080'
+        external_url 'http://localhost:58000'
         # gitlab.rb configuration here, each on its own line
     ports:
-      - '58080:58080'
+      - '58000:58000'
       - '50022:22'
     volumes:
       - '$ZENOPS_HOME/gitlab/config:/etc/gitlab'
       - '$ZENOPS_HOME/gitlab/logs:/var/log/gitlab'
       - '$ZENOPS_HOME/gitlab/data:/var/opt/gitlab'
       - '$ZENOPS_HOME/gitlab/letsencrypt:/letsencrypt'
+
+  zenops-jenkins:
+    restart: always
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - '58080:8080'
+      - '50000:50000'
+    volumes:
+      - $ZENOPS_HOME/jenkins/data:/var/jenkins_home
 
   zenops-sonar-postgres:
     image: postgres:12.3
