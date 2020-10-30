@@ -10,4 +10,4 @@ ADD software/ztf-linux-2.2 /z/dev/tool/ztf-linux-2.2
 ENV MAVEN_HOME /z/dev/tool/apache-maven-3.6.3
 ENV ZTF_HOME /z/dev/tool/ztf-linux-2.2
 ENV PATH $MAVEN_HOME/bin:$ZTF_HOME:$PATH
-CMD ["sh", "-url http://127.0.0.1:8080 ${TOKEN}", "${NAME}"]
+CMD ["-url http://127.0.0.1:8080 ${TOKEN}", "${NAME}"]
