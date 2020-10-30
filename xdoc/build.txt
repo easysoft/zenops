@@ -1,0 +1,5 @@
+docker build --rm -f files/Dockerfile-base -t registry.cn-shanghai.aliyuncs.com/ngtesting/zenops-base:1.0 .
+docker push registry.cn-shanghai.aliyuncs.com/ngtesting/zenops-base:1.0
+
+docker build --rm -f files/Dockerfile-jenkins-slave-ubuntu1804 -t registry.cn-shanghai.aliyuncs.com/ngtesting/zenops-jenkins-slave-ubuntu1804:1.0 .
+docker push registry.cn-shanghai.aliyuncs.com/ngtesting/zenops-jenkins-slave-ubuntu1804:1.0
