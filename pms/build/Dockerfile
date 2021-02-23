@@ -9,7 +9,7 @@ RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
 COPY sources.list /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install --assume-yes apt-utils php7.2
-RUN apt-get install --assume-yes cconv make
+RUN apt-get install --assume-yes zip cconv make
 
 #COPY yuicompressor $Z_HOME/yuicompressor
 COPY docker_init.sh $Z_HOME/docker_init.sh
