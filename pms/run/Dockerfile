@@ -24,11 +24,13 @@ COPY config/20-mcrypt.ini /etc/php/7.2/cli/conf.d/
 COPY config/libmcrypt.so.4.4.8 /usr/lib/libmcrypt.so.4
 
 #COPY zentao.zip /tmp/
-#COPY config/apache.conf /etc/apache2/sites-enabled/
-#RUN mkdir /www
-#RUN unzip -q /tmp/zentao.zip -d /var/www > /dev/null
-#RUN rm /etc/apache2/sites-enabled/000-default.conf
-#RUN rm /tmp/zentao.zip
+ADD http://192.168.1.161:58082/artifactory/zentaopms/ZenTaoPMS.15.0.beta1.zip /tmp/zentao.zip
+RUN ls -l /tmp/
+COPY config/apache.conf /etc/apache2/sites-enabled/
+RUN mkdir /www
+RUN unzip -q /tmp/zentao.zip -d /var/www > /dev/null
+RUN rm /etc/apache2/sites-enabled/000-default.conf
+RUN rm /tmp/zentao.zip
 
 RUN chmod a+x /.docker_init.sh && a2enmod rewrite && \
     rm -rf /var/lib/mysql/* &&  sed -i '1i ServerName 127.0.0.1' /etc/apache2/apache2.conf && \
