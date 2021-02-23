@@ -1,6 +1,6 @@
 /.idea/
 
 /agent/software/
-/pms/run/config/
-/pms/build/yuicompressor/
-/pms/build/zentaopms/
+/zentao/run/config/
+/zentao/build/yuicompressor/
+/zentao/build/zentaopms/
