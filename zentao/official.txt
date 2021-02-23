@@ -1,0 +1,12 @@
+export ZENOPS_HOME=/root/work/zenops && echo $ZENOPS_HOME
+rm -rf ${ZENOPS_HOME}/docker/gitlab && mkdir -p ${ZENOPS_HOME}/docker/zentaopms && chmod 666 ${ZENOPS_HOME}/docker/jenkins
+
+
+docker run \
+  -d --name zentaopms \
+  -p 50080:80 \
+  -v ${ZENOPS_HOME}/docker/zentaopms/www:/www/zentaopms \
+  -v ${ZENOPS_HOME}/docker/zentaopms/mysql:/var/lib/mysql \
+  -e MYSQL_ROOT_PASSWORD=P2ssw0rd \
+  --restart=always \
+  easysoft/zentao
