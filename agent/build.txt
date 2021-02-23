@@ -1,0 +1,7 @@
+export version=latest
+
+chmod +x start.sh
+
+docker build --rm -f Dockerfile -t registry.cn-shanghai.aliyuncs.com/ngtesting/zenops-agent:$version .
+docker push registry.cn-shanghai.aliyuncs.com/ngtesting/zenops-agent:$version
+

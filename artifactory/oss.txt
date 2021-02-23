@@ -1,0 +1,11 @@
+export ZENOPS_HOME=/home/z/zenops && echo $ZENOPS_HOME
+rm -rf ${ZENOPS_HOME}/docker/artifactory && mkdir -p ${ZENOPS_HOME}/docker/artifactory && chmod 666 ${ZENOPS_HOME}/docker/artifactory
+
+docker pull docker.bintray.io/jfrog/artifactory-oss:latest
+docker run \
+    -d --name artifactory  \
+    -p 58081:8081 -p 58082:8082 \
+    -v ${ZENOPS_HOME}/docker/artifactory:/var/opt/jfrog/artifactory \
+    -u 0 \
+    --restart=always \
+    docker.bintray.io/jfrog/artifactory-oss:latest

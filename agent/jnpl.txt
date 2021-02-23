@@ -1,0 +1,13 @@
+export ZENOPS_HOME=/root/work/zenops && echo $ZENOPS_HOME
+rm -rf ${ZENOPS_HOME}/docker/agent && mkdir -p ${ZENOPS_HOME}/docker/agent && chmod 666 ${ZENOPS_HOME}/docker/agent
+
+docker run \
+  -d --name zenops-agent \
+  -u root \
+  -p 58848:8848 \
+  -p 58849:8849 \
+  --restart=always \
+  --init registry.cn-shanghai.aliyuncs.com/ngtesting/zenops-agent:latest \
+  http://t.ztesting.net:58080 \
+  61534b0948968b15e2bb5e3261200d8d422be5cb7d470a850a2d817049e11b13 \
+  zenops-agent

@@ -1,0 +1,20 @@
+docker pull hello-world
+
+docker tag registry.cn-shanghai.aliyuncs.com/ngtesting/zenops-agent:latest 192.168.1.161:59082/zenops/zenops-agent:latest
+
+docker login -u zenops-user -p P2ssw0rd 192.168.1.161:59082
+docker push 192.168.1.161:59082/zenops/zenops-agent
+
+sudo vi /etc/docker/daemon.json
+{
+  "registry-mirrors": [
+    "https://registry.docker-cn.com",
+    "http://hub-mirror.c.163.com",
+    "https://docker.mirrors.ustc.edu.cn"
+  ],
+  "insecure-registries": ["192.168.1.161:59082"]
+}
+
+sudo systemctl daemon-reload
+sudo systemctl restart docker.service
+sudo systemctl enable docker.service

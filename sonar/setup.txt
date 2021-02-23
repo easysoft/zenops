@@ -1,0 +1,17 @@
+export ZENOPS_HOME=/home/z/zenops && echo $ZENOPS_HOME
+rm -rf ${ZENOPS_HOME}/docker/sonar && mkdir -p ${ZENOPS_HOME}/docker/sonar && chmod 666 ${ZENOPS_HOME}/docker/sonar
+
+docker run \
+    -d --name sonar \
+    -p 59001:9000 \
+    -v ${ZENOPS_HOME}/docker/sonar/data:/opt/sonarqube/data \
+    -v ${ZENOPS_HOME}/docker/sonar/extensions:/opt/sonarqube/extensions \
+    -v ${ZENOPS_HOME}/docker/sonar/logs:/opt/sonarqube/logs \
+    --restart=always \
+    sonarqube:community
+
+ mvn sonar:sonar  \
+   -Dsonar.projectKey=ci_test_testng  \
+   -Dsonar.host.url=http://192.168.0.56:59001  \
+   -Dsonar.scm.provider=git \
+   -Dsonar.login=a125aab35cab708d6afea5cee8875ebe7e59ef04

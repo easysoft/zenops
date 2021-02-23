@@ -1,0 +1,51 @@
+几个概念：
+1. .gitlab-ci.yml为Pipeline的定义文件，包含多个Job；
+2. 左侧CI/CD菜单中的Pipeline，实为构建执行结果的列表；
+3. Pipeline的一次构建执行，结果包含多个Job的结果。
+配置举例：
+	stages:
+	   - build
+	   - deploy
+	   - test
+
+	build1:
+	   stage: build
+	   script:
+	      - echo "start build1 ..."
+
+	build2:
+	   stage: build
+	   script:
+	      - echo "start build2 ..."
+	      - mvn clean package test
+	      
+	deploy:
+	   stage: deploy
+	   script:
+	      - echo "start deploy ..."
+	      
+	integration-test:
+	   stage: test
+	   script:
+	      - echo "start integration test ..."
+
+
+用户认证：
+方案一，使用GitLab作为OAuth2的认证提供者，集成用户认证和授权；
+方案二，新禅道系统，调用User List/Detail接口，同步GitLab用户到禅道；
+方案三，新Gitlab系统，调用User Creation接口在Gitlab中创建禅道相应的用户；
+更多认证方案，可请参考https://docs.gitlab.com/ee/topics/authentication/
+
+对接API:
+1. 使用Issue List/Detail接口获取问题，并导出/同步到禅道；
+2. 使用Branch List获取分支,并展示；
+3. 使用Tag List接口获取标签，并匹配和触发构建；
+4. 使用Commit List/Detail/Diff接口获取提交日志，匹配和触发构建；
+5. 使用Trigger List/Detail/Create查看和创建构建触发器；
+6. 使用Trigger Build触发具体的构建，返回中包含一个Pipeline Id;
+7. 使用上述接口返回的Pipeline Id，调用Pipeline Detail接口获取状态；
+8. 使用上述接口返回的Pipeline Id，调用Pipeline Job List接口获取其下所有Job状态；
+10. 通过Job Id调用Job Detail接口，可进一步获得Job的详细信息。
+
+Postman接口调用例子：
+请见postman_collection.json

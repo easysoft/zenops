@@ -1,0 +1,11 @@
+export ZENOPS_HOME=/root/work/zenops && echo $ZENOPS_HOME
+rm -rf ${ZENOPS_HOME}/docker/gitlab && mkdir -p ${ZENOPS_HOME}/docker/gitlab && chmod 666 ${ZENOPS_HOME}/docker/gitlab
+
+docker run \
+  -d --name gitlab \
+  -p 51080:51080 -p 51022:22 \
+  --volume ${ZENOPS_HOME}/docker/gitlab/config:/etc/gitlab \
+  --volume ${ZENOPS_HOME}/docker/gitlab/logs:/var/log/gitlab \
+  --volume ${ZENOPS_HOME}/docker/gitlab/data:/var/opt/gitlab \
+  --restart always \
+  gitlab/gitlab-ce
