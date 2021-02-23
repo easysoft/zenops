@@ -1,8 +1,8 @@
+cd zentaopms && git pull && cd .. && \
 docker build --rm -t 192.168.1.161:59082/zenops/pms-builder:latest .
 
 docker push 192.168.1.161:59082/zenops/pms-builder:latest
 
-docker run \
-  -d --name pms-builder \
+docker run -d --name pms-builder \
   192.168.1.161:59082/zenops/pms-builder:latest
 docker exec -it pms-builder /bin/bash

@@ -2,4 +2,4 @@
 
 /agent/software/
 /pms/run/config/
-/pms/run/yuicompressor/
+/pms/build/yuicompressor/

@@ -2,16 +2,19 @@ FROM ubuntu:18.04
 MAINTAINER chenqi <chenqi@easycorp.ltd>
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y apache2 mariadb-server php7.2 php7.2-curl php7.2-gd php7.2-ldap \
-    php7.2-mbstring php7.2-mysql php7.2-xml php7.2-zip php7.2-cli php7.2-json curl cron \
-    vim unzip libapache2-mod-php locales
+ENV Z_HOME /z
+ENV PATH $Z_HOME:$PATH
 
-ENV LANG="en_US.UTF8"
-ENV TZ=Asia/Shanghai
-ENV MYSQL_ROOT_PASSWORD="123456"
-RUN echo -e "LANG=\"en_US.UTF-8\"\nLANGUAGE=\"en_US:en\"" > /etc/default/locale && locale-gen en_US.UTF-8 && \
-    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo '$TZ' > /etc/timezone
+RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
+COPY sources.list /etc/apt/sources.list
+RUN apt-get update
+RUN apt-get install --assume-yes apt-utils php7.2
+RUN apt-get install --assume-yes cconv make
 
-COPY docker_init.sh /.docker_init.sh
+#COPY yuicompressor $Z_HOME/yuicompressor
+COPY docker_init.sh $Z_HOME/docker_init.sh
+COPY zentaopms $Z_HOME/zentaopms
 
-ENTRYPOINT ["/.docker_init.sh"]
+RUN chmod a+x $Z_HOME/docker_init.sh
+
+ENTRYPOINT ["/z/docker_init.sh"]
