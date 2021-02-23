@@ -8,8 +8,8 @@ ENV PATH $Z_HOME:$PATH
 RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
 COPY sources.list /etc/apt/sources.list
 RUN apt-get update
-RUN apt-get install --assume-yes apt-utils make php7.2
-RUN apt-get install --assume-yes openjdk-8-jdk curl zip cconv
+RUN apt-get install --assume-yes apt-utils curl zip cconv
+RUN apt-get install --assume-yes make php7.2 openjdk-8-jdk
 
 COPY yuicompressor/yuicompressor.jar /root/bin/yuicompressor/build/yuicompressor.jar
 COPY docker_init.sh $Z_HOME/docker_init.sh
