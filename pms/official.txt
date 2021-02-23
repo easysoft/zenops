@@ -1,6 +1,7 @@
 export ZENOPS_HOME=/root/work/zenops && echo $ZENOPS_HOME
 rm -rf ${ZENOPS_HOME}/docker/gitlab && mkdir -p ${ZENOPS_HOME}/docker/zentaopms && chmod 666 ${ZENOPS_HOME}/docker/jenkins
 
+
 docker run \
   -d --name zentaopms \
   -p 50080:80 \
