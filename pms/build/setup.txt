@@ -6,3 +6,5 @@ docker push 192.168.1.161:59082/zenops/pms-builder:latest
 docker run -d --name pms-builder \
   192.168.1.161:59082/zenops/pms-builder:latest
 docker exec -it pms-builder /bin/bash
+
+curl -k -u zenops-user:P2ssw0rd  -T sources.list  http://192.168.1.161:58082/artifactory/zentaopms/apt.sources.list
