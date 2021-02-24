@@ -1,0 +1,21 @@
+# run inbound-agent
+docker run \
+    -d --name docker-agent-inbound \
+    --init jenkins/inbound-agent \
+    -url http://192.168.1.161:58080 \
+    40f84c87438a03a4744d90a8da09ca50aea79dfbbbae167e37db907faf7759fb \
+    docker-agent-inbound
+
+# run inbound-agent with maven tool etc.
+docker run \
+    -d --name docker-agent-zenops-inbound \
+    --init 192.168.1.161:59082/zenops/docker-agent-zenops-inbound:latest \
+    -url http://192.168.1.161:58080 \
+    c44fcee8d61b1d35a3b2aabe4938d28940f13bc56c884dbbfed65a5282005754 \
+    docker-agent-zenops-inbound
+
+docker commit -m "update" -a "aaron" docker-agent-zenops-inbound \
+    192.168.1.161:59082/zenops/docker-agent-zenops-inbound:latest
+docker push 192.168.1.161:59082/zenops/docker-agent-zenops-inbound:latest
+
+docker login -u zenops-user -p P2ssw0rd 192.168.1.161:59082
