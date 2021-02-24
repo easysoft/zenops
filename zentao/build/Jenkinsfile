@@ -10,20 +10,20 @@ pipeline {
 		            git url: 'http://192.168.1.161:51080/root/zentaopms.git',
 	            	    credentialsId: 'gitlab-credential'
 	    	    }
-	    	    dir ('zenops') {
-	    	    	echo 'cehckout zenops'
-		            git url: 'http://192.168.1.161:51080/root/zenops.git',
-	            	    credentialsId: 'gitlab-credential'
-	    	    }
+// 	    	    dir ('zenops') {
+// 	    	    	echo 'cehckout zenops'
+// 		            git url: 'http://192.168.1.161:51080/root/zenops.git',
+// 	            	    credentialsId: 'gitlab-credential'
+// 	    	    }
 	        }
 	    }
 	    stage('build docker image') {
 	    	agent { node { label 'pve' } }
 		    steps {
-		    	dir ('zenops/zentao/build') {
+// 		    	dir ('zenops/zentao/build') {
 			        script {
-			            echo 'move asserts to current dir'
-                    	sh 'mv ../../../zentaopms ./'
+// 			            echo 'move asserts to current dir'
+//                     	sh 'mv ../../../zentaopms ./'
 
 			            echo 'download tools'
 			            sh 'wget -P tool http://192.168.1.161:58082/artifactory/zentaopms/tool/yuicompressor.jar'
@@ -31,7 +31,7 @@ pipeline {
 			            echo 'build docker image ...'
 			            sh 'docker build --rm -t 192.168.1.161:59082/zenops/zentao-builder:latest .'
 			        }
-		        }
+// 		        }
 		    }
 	    }
 	    stage('upload') {
