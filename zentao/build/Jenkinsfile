@@ -21,7 +21,10 @@ pipeline {
 	    	agent { node { label 'pve' } }
 		    steps {
 		    	dir ('zenops/zentao/build') {
-			        script: {
+			        script {
+			            echo 'download tools ...'
+			            sh 'wget -P tool http://192.168.1.161:58082/artifactory/zentaopms/tool/yuicompressor.jar'
+
 			            echo 'build docker image ...'
 			            sh 'docker build --rm -t 192.168.1.161:59082/zenops/zentao-builder:latest .'
 			        }
