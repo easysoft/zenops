@@ -11,7 +11,7 @@ RUN apt-get update
 RUN apt-get install --assume-yes apt-utils curl zip cconv
 RUN apt-get install --assume-yes make php7.2 openjdk-8-jdk
 
-COPY yuicompressor/yuicompressor.jar /root/bin/yuicompressor/build/yuicompressor.jar
+COPY tool/yuicompressor.jar /root/bin/yuicompressor/build/yuicompressor.jar
 COPY docker_init.sh $Z_HOME/docker_init.sh
 COPY ../../../zentaopms $Z_HOME/zentaopms
 
