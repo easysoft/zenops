@@ -37,9 +37,12 @@ pipeline {
 	    stage('upload') {
 		    agent { node { label 'pve' } }
 			steps {
-			    dir ('zenops') {
+// 			    dir ('zenops') {
 					echo 'upload docker image ...'
-			    }
+
+					sh 'docker login -u zenops-user -p P2ssw0rd 192.168.1.161:59082'
+                    sh 'docker push 192.168.1.161:59082/zenops/zentao-builder:latest'
+// 			    }
 			}
 
 	    }
