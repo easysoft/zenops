@@ -2,7 +2,7 @@ pipeline {
     agent none
     stages {
 	    stage('build image') {
-	    	agent { node { label 'pve' } }
+	    	agent { node { label 'build-server' } }
 		    steps {
 		    	dir ('zentao/test') {
 			        script {
@@ -17,7 +17,7 @@ pipeline {
 		    }
 	    }
 	    stage('push image') {
-            agent { node { label 'pve' } }
+            agent { node { label 'build-server' } }
                 steps {
                     echo 'upload docker image ...'
 
@@ -26,7 +26,7 @@ pipeline {
                 }
             }
 	    stage('start container') {
-		    agent { node { label 'pve' } }
+		    agent { node { label 'build-server' } }
 			steps {
                 echo 'start container'
 
@@ -39,7 +39,7 @@ pipeline {
 			}
 	    }
 	    stage('exec install script') {
-            agent { node { label 'pve' } }
+            agent { node { label 'build-server' } }
             steps {
                 echo 'exec install script'
             }
