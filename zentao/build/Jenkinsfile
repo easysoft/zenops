@@ -2,16 +2,16 @@
 pipeline {
     agent none
     stages {
-    	stage('checkout project') {
-	    	agent { node { label 'pve' } }
-	    	steps {
-	    	    dir ('zentao/build/zentaopms') {
-	    	    	echo 'cehckout zentaopms'
-		            git url: 'http://192.168.1.161:51080/root/zentaopms.git',
-	            	    credentialsId: 'gitlab-credential'
-	    	    }
-	        }
-	    }
+//     	stage('checkout project') {
+// 	    	agent { node { label 'pve' } }
+// 	    	steps {
+// 	    	    dir ('zentao/build/zentaopms') {
+// 	    	    	echo 'cehckout zentaopms'
+// 		            git url: 'http://192.168.1.161:51080/root/zentaopms.git',
+// 	            	    credentialsId: 'gitlab-credential'
+// 	    	    }
+// 	        }
+// 	    }
 	    stage('build docker image') {
 	    	agent { node { label 'pve' } }
 		    steps {
@@ -34,7 +34,6 @@ pipeline {
                 sh 'docker login -u zenops-user -p P2ssw0rd 192.168.1.161:59082'
                 sh 'docker push 192.168.1.161:59082/zenops/zentao-builder:latest'
 			}
-
 	    }
 	}
 }

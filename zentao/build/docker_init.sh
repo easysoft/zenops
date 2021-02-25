@@ -2,8 +2,14 @@
 set -e
 export Z_HOME=/z
 
-# compile
+# edit makefile
 sed -i '145,148s/^/#&/' $Z_HOME/zentaopms/Makefile
+
+# pull codes
+cd $Z_HOME
+git clone 'http://192.168.1.161:51080/root/zentaopms.git'
+
+# make
 cd $Z_HOME/zentaopms
 make pms
 
