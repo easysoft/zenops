@@ -8,7 +8,7 @@ pipeline {
 			        script {
 			            echo 'load config'
 			            sh 'wget http://192.168.1.161:58082/artifactory/zentaopms/config/config.zip'
-			            sh 'unzip config.zip -d config'
+			            sh 'unzip -o config.zip -d config'
 
 			            echo 'build docker image ...'
 			            sh 'docker build --rm -t 192.168.1.161:59082/zenops/zentao-server:latest .'
