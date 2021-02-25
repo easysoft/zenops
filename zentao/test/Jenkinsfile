@@ -21,6 +21,8 @@ pipeline {
 			steps {
                 echo 'start container'
 
+                sh 'docker pull 192.168.1.161:59082/zenops/zentao-server:latest'
+                sh 'docker rm -f zentao-server'
                 sh 'docker run -d --name zentao-server \
                         -p 50001:80 \
                         -e MYSQL_ROOT_PASSWORD=123456 \
