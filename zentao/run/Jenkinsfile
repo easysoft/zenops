@@ -4,7 +4,7 @@ pipeline {
 	    stage('build image') {
 	    	agent { node { label 'build-server' } }
 		    steps {
-		    	dir ('zentao/test') {
+		    	dir ('zentao/run') {
 			        script {
 			            echo 'load config'
 			            sh 'wget http://192.168.1.161:58082/artifactory/zentaopms/config/config.zip'
@@ -38,11 +38,5 @@ pipeline {
                         192.168.1.161:59082/zenops/zentao-server:latest'
 			}
 	    }
-	    stage('exec install script') {
-            agent { node { label 'build-server' } }
-            steps {
-                echo 'exec install script'
-            }
-        }
 	}
 }
