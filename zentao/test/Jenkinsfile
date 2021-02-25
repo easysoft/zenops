@@ -1,0 +1,37 @@
+pipeline {
+    agent none
+    stages {
+	    stage('build image') {
+	    	agent { node { label 'pve' } }
+		    steps {
+		    	dir ('zentao/test') {
+			        script {
+			            echo 'load config'
+			            sh 'wget http://192.168.1.161:58082/artifactory/zentaopms/config/config.zip'
+			            sh 'unzip config.zip -d config'
+
+			            echo 'build docker image ...'
+			            sh 'docker build --rm -t 192.168.1.161:59082/zenops/zentao-server:latest .'
+			        }
+		        }
+		    }
+	    }
+	    stage('start container') {
+		    agent { node { label 'pve' } }
+			steps {
+                echo 'start container'
+
+                sh 'docker run -d --name zentao-server \
+                        -p 50080:80 \
+                        -e MYSQL_ROOT_PASSWORD=123456 \
+                        192.168.1.161:59082/zenops/zentao-server:latest'
+			}
+	    }
+	    stage('exec install script') {
+            agent { node { label 'pve' } }
+            steps {
+                echo 'exec install script'
+            }
+        }
+	}
+}

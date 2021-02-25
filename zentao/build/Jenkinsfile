@@ -1,4 +1,3 @@
-
 pipeline {
     agent none
     stages {
@@ -30,8 +29,9 @@ pipeline {
             steps {
                 echo 'start to compile'
 
-                sh 'docker login -u zenops-user -p P2ssw0rd 192.168.1.161:59082'
-                sh 'docker push 192.168.1.161:59082/zenops/zentao-builder:latest'
+                sh 'docker pull 192.168.1.161:59082/zenops/zentao-builder:latest'
+                sh 'docker rm -f zentao-builder'
+                sh 'docker run -d --name zentao-builder 192.168.1.161:59082/zenops/zentao-builder:latest'
             }
         }
 	}

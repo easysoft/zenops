@@ -1,5 +1,5 @@
 FROM ubuntu:18.04
-MAINTAINER dongdong <jiadongdong@easycorp.ltd>
+MAINTAINER chenqi <chenqi@easycorp.ltd>
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y apache2 mariadb-server php7.2 php7.2-curl php7.2-gd php7.2-ldap \
