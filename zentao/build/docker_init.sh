@@ -2,13 +2,14 @@
 set -e
 export Z_HOME=/z
 
-# edit makefile
-sed -i '145,148s/^/#&/' $Z_HOME/zentaopms/Makefile
-
+# pull codes
 echo "start pull codes @ $(date +%T)"
 cd $Z_HOME
 git clone http://chenqi:zGx3WjkxphapoG4eeHjP@192.168.1.161:51080/root/zentaopms.git
 echo "end pull codes @ $(date +%T)"
+
+# edit makefile
+sed -i '145,148s/^/#&/' $Z_HOME/zentaopms/Makefile
 
 # make
 cd $Z_HOME/zentaopms
