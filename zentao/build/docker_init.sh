@@ -2,13 +2,16 @@
 set -e
 export Z_HOME=/z
 
-USER_ACCOUNT="$ENV_ARTIFACTORY_USER:$ENV_ARTIFACTORY_PASSWORD"
-echo "USER_ACCOUNT=$USER_ACCOUNT"
+GIT_ACCOUNT="$ENV_GIT_USER:$ENV_GIT_TOKEN"
+echo "GIT_ACCOUNT=$GIT_ACCOUNT"
+
+ARTIFACTORY_ACCOUNT="$ENV_ARTIFACTORY_USER:$ENV_ARTIFACTORY_PASSWORD"
+echo "ARTIFACTORY_ACCOUNT=$ARTIFACTORY_ACCOUNT"
 
 # pull codes
 echo "start pull codes @ $(date +%T)"
 cd $Z_HOME
-git clone http://chenqi:zGx3WjkxphapoG4eeHjP@192.168.1.161:51080/root/zentaopms.git
+git clone "http://$GIT_ACCOUNT@192.168.1.161:51080/root/zentaopms.git"
 echo "end pull codes @ $(date +%T)"
 
 # edit makefile
@@ -20,7 +23,7 @@ make pms
 
 # upload
 BUILD_NAME=$(ls -l *.zip | awk '{print $NF}')
-curl -v -k -u "$USER_ACCOUNT"  -T "$BUILD_NAME"  http://192.168.1.161:58082/artifactory/zentaopms/$BUILD_NAME
+curl -v -k -u "$ARTIFACTORY_ACCOUNT"  -T "$BUILD_NAME"  http://192.168.1.161:58082/artifactory/zentaopms/$BUILD_NAME
 
 cd $Z_HOME
 
