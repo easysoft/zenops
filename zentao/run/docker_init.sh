@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+echo "ENV_MYSQL_ROOT_PASSWORD=$ENV_MYSQL_ROOT_PASSWORD"
+
 if [ ! -d "/www/zentaopms" ];then
   mkdir -p /www/zentaopms
 fi
@@ -21,7 +23,7 @@ chown -R mysql:mysql /var/lib/mysql/
 if [ "`ls -A /var/lib/mysql/`" = "" ]; then
   mysql_install_db --defaults-file=/etc/mysql/my.cnf
   /etc/init.d/mysql restart
-  /usr/bin/mysqladmin -uroot password $MYSQL_ROOT_PASSWORD
+  /usr/bin/mysqladmin -uroot password $ENV_MYSQL_ROOT_PASSWORD
 else
   /etc/init.d/mysql restart
 fi

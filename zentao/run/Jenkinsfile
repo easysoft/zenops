@@ -6,6 +6,16 @@ pipeline {
             name: 'MYSQL_ROOT_PASSWORD',
             defaultValue: '123456',
         )
+        string(
+            description: 'Input artifactory user name.',
+            name: 'ARTIFACTORY_USER',
+            defaultValue: 'zenops-user',
+        )
+        string(
+            description: 'Input artifactory user password.',
+            name: 'ARTIFACTORY_PASSWORD',
+            defaultValue: 'P2ssw0rd',
+        )
     }
     stages {
 	    stage('build image') {
@@ -19,7 +29,7 @@ pipeline {
 
 			            echo 'build docker image ...'
 			            sh 'docker build \
-			                --build-arg  MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
+			                --build-arg MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
 			                --rm -t 192.168.1.161:59082/zenops/zentao-server:latest .'
 			        }
 		        }
@@ -30,7 +40,7 @@ pipeline {
                 steps {
                     echo 'upload docker image ...'
 
-                    sh 'docker login -u zenops-user -p P2ssw0rd 192.168.1.161:59082'
+                    sh 'docker login -u ${ARTIFACTORY_USER} -p ${ARTIFACTORY_PASSWORD} 192.168.1.161:59082'
                     sh 'docker push 192.168.1.161:59082/zenops/zentao-server:latest'
                 }
             }
@@ -43,7 +53,6 @@ pipeline {
                 sh 'docker rm -f zentao-server'
                 sh 'docker run -d --name zentao-server \
                         -p 50001:80 \
-                        -e MYSQL_ROOT_PASSWORD=123456 \
                         192.168.1.161:59082/zenops/zentao-server:latest'
 			}
 	    }
