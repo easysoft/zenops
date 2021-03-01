@@ -17,7 +17,9 @@ make pms
 
 # upload
 BUILD_NAME=$(ls -l *.zip | awk '{print $NF}')
-curl -v -k -u zenops-user:P2ssw0rd  -T $BUILD_NAME  http://192.168.1.161:58082/artifactory/zentaopms/$BUILD_NAME
+USER_ACCOUNT="$ARTIFACTORY_USER:$ARTIFACTORY_PASSWORD"
+echo "USER_ACCOUNT=$USER_ACCOUNT"
+curl -v -k -u "$USER_ACCOUNT"  -T "$BUILD_NAME"  http://192.168.1.161:58082/artifactory/zentaopms/$BUILD_NAME
 
 cd $Z_HOME
 
