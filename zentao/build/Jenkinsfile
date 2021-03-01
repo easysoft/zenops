@@ -9,7 +9,7 @@ pipeline {
         string(
             description: 'Input artifactory user password.',
             name: 'ARTIFACTORY_PASSWORD',
-            defaultValue: '123456',
+            defaultValue: 'P2ssw0rd',
         )
     }
 
