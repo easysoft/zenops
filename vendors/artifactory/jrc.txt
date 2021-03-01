@@ -4,6 +4,7 @@ rm -rf ${ZENOPS_HOME}/docker/artifactory-jcr \
     && chmod 666 ${ZENOPS_HOME}/docker/artifactory-jcr
 
 docker pull docker.bintray.io/jfrog/artifactory-jcr:latest
+
 docker run \
     -d --name artifactory-jcr  \
     -p 59081:8081  -p 59082:8082 \
