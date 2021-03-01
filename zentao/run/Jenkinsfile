@@ -1,5 +1,12 @@
 pipeline {
     agent none
+    parameters {
+        string(
+            description: 'Input mysql root password.',
+            name: 'MYSQL_ROOT_PASSWORD',
+            defaultValue: '123456',
+        )
+    }
     stages {
 	    stage('build image') {
 	    	agent { node { label 'build-server' } }
@@ -11,7 +18,9 @@ pipeline {
 			            sh 'unzip -o config.zip -d config'
 
 			            echo 'build docker image ...'
-			            sh 'docker build --rm -t 192.168.1.161:59082/zenops/zentao-server:latest .'
+			            sh 'docker build \
+			                --build-arg  MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
+			                --rm -t 192.168.1.161:59082/zenops/zentao-server:latest .'
 			        }
 		        }
 		    }

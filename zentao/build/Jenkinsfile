@@ -12,6 +12,7 @@ pipeline {
             defaultValue: '123456',
         )
     }
+
     stages {
 	    stage('build image') {
 	    	agent { node { label 'build-server' } }
@@ -23,8 +24,8 @@ pipeline {
 
 			            echo 'build docker image ...'
 			            sh 'docker build \
-			                --build-arg  artifactory_user=${ARTIFACTORY_USER} \
-			                --build-arg  artifactory_password=${ARTIFACTORY_PASSWORD} \
+			                --build-arg  ARTIFACTORY_USER=${ARTIFACTORY_USER} \
+			                --build-arg  ARTIFACTORY_PASSWORD=${ARTIFACTORY_PASSWORD} \
 			                --rm -t 192.168.1.161:59082/zenops/zentao-builder:latest .'
 			        }
 		        }

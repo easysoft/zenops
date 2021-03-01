@@ -1,14 +1,17 @@
 FROM ubuntu:18.04
 MAINTAINER chenqi <chenqi@easycorp.ltd>
 
+ARG MYSQL_ROOT_PASSWORD
+
+ENV MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
 ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && apt-get install -y apache2 mariadb-server php7.2 php7.2-curl php7.2-gd php7.2-ldap \
     php7.2-mbstring php7.2-mysql php7.2-xml php7.2-zip php7.2-cli php7.2-json curl cron \
     vim unzip libapache2-mod-php locales
 
 ENV LANG="en_US.UTF8"
 ENV TZ=Asia/Shanghai
-ENV MYSQL_ROOT_PASSWORD="123456"
 RUN echo -e "LANG=\"en_US.UTF-8\"\nLANGUAGE=\"en_US:en\"" > /etc/default/locale && locale-gen en_US.UTF-8 && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo '$TZ' > /etc/timezone
 
