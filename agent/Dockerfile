@@ -21,6 +21,6 @@ ENV ZTF_HOME /root/zmanager/ztf/latest/ztf/
 ENV ZD_HOME /root/zmanager/zd/latest/zd/
 ENV PATH $M3_HOME/bin:$Z_HOME:$ZMANAGER_HOME:$ZTF_HOME:$ZD_HOME:$PATH
 
-RUN zmanager -a install -l zh --ztf --zd
+RUN zmanager -a install -l zh -ztf -zd
 
 ENTRYPOINT ["/z/start.sh"]
