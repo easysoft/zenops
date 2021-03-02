@@ -6,6 +6,7 @@ docker push 192.168.1.161:59082/zenops/zenops-agent:latest
 docker pull 192.168.1.161:59082/zenops/zenops-agent:latest
 docker run \
     -d --name zenops-agent \
+    -p 58848:8848 -p 58849:8849 \
     --init 192.168.1.161:59082/zenops/zenops-agent:latest \
     -url http://192.168.1.161:58080 \
     d67c6106b11478ceadd2f7c34e0cfe8a74d1212d7248930dea21080d1b4f1a61 \
