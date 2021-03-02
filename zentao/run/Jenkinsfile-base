@@ -1,0 +1,39 @@
+pipeline {
+    agent none
+    parameters {
+        string(
+            description: 'Input artifactory user name.',
+            name: 'ARTIFACTORY_USER',
+            defaultValue: 'zenops-user',
+        )
+        string(
+            description: 'Input artifactory user password.',
+            name: 'ARTIFACTORY_PASSWORD',
+            defaultValue: 'P2ssw0rd',
+        )
+    }
+    stages {
+	    stage('build image') {
+	    	agent { node { label 'build-server' } }
+		    steps {
+		    	dir ('zentao/run') {
+			        script {
+			            echo 'build base docker image ...'
+			            sh 'docker build -f Dockerfile-base \
+			                --build-arg MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
+			                --rm -t 192.168.1.161:59082/zenops/zentao-server-base:latest .'
+			        }
+		        }
+		    }
+	    }
+	    stage('push image') {
+        agent { node { label 'build-server' } }
+            steps {
+                echo 'upload docker image ...'
+
+                sh 'docker login -u ${ARTIFACTORY_USER} -p ${ARTIFACTORY_PASSWORD} 192.168.1.161:59082'
+                sh 'docker push 192.168.1.161:59082/zenops/zentao-server-base:latest'
+            }
+        }
+	}
+}

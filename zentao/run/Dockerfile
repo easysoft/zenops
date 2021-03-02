@@ -1,23 +1,10 @@
-FROM ubuntu:18.04
+FROM 192.168.1.161:59082/zenops/zentao-server-base:latest
 MAINTAINER chenqi <chenqi@easycorp.ltd>
 
 ARG MYSQL_ROOT_PASSWORD
 
 RUN echo "MySQL Password = $MYSQL_ROOT_PASSWORD"
 ENV ENV_MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
-COPY sources.list /etc/apt/sources.list
-
-RUN apt-get update && apt-get install -y apache2 mariadb-server php7.2 php7.2-curl php7.2-gd php7.2-ldap \
-    php7.2-mbstring php7.2-mysql php7.2-xml php7.2-zip php7.2-cli php7.2-json curl cron \
-    vim unzip libapache2-mod-php locales
-
-ENV LANG="en_US.UTF8"
-ENV TZ=Asia/Shanghai
-RUN echo -e "LANG=\"en_US.UTF-8\"\nLANGUAGE=\"en_US:en\"" > /etc/default/locale && locale-gen en_US.UTF-8 && \
-    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo '$TZ' > /etc/timezone
 
 COPY docker_init.sh /.docker_init.sh
 COPY config/vimrc /root/.vimrc

@@ -46,14 +46,14 @@ pipeline {
 		    }
 	    }
 	    stage('push image') {
-            agent { node { label 'build-server' } }
-                steps {
-                    echo 'upload docker image ...'
+        agent { node { label 'build-server' } }
+            steps {
+                echo 'upload docker image ...'
 
-                    sh 'docker login -u ${ARTIFACTORY_USER} -p ${ARTIFACTORY_PASSWORD} 192.168.1.161:59082'
-                    sh 'docker push 192.168.1.161:59082/zenops/zentao-server:latest'
-                }
+                sh 'docker login -u ${ARTIFACTORY_USER} -p ${ARTIFACTORY_PASSWORD} 192.168.1.161:59082'
+                sh 'docker push 192.168.1.161:59082/zenops/zentao-server:latest'
             }
+        }
 	    stage('start container') {
 		    agent { node { label 'build-server' } }
 			steps {
