@@ -1,3 +1,16 @@
+chmod +x start.sh
+docker build --rm -f Dockerfile -t 192.168.1.161:59082/zenops/zenops-agent:latest .
+docker push 192.168.1.161:59082/zenops/zenops-agent:latest
+
+# run zenops-agent
+docker pull 192.168.1.161:59082/zenops/zenops-agent:latest
+docker run \
+    -d --name zenops-agent \
+    --init 192.168.1.161:59082/zenops/zenops-agent:latest \
+    -url http://192.168.1.161:58080 \
+    d67c6106b11478ceadd2f7c34e0cfe8a74d1212d7248930dea21080d1b4f1a61 \
+    zenops-agent
+
 # run inbound-agent
 docker run \
     -d --name docker-agent-inbound \
