@@ -35,7 +35,6 @@ pipeline {
 			                --build-arg ARTIFACTORY_OSS_SERVER=${conf.ARTIFACTORY_OSS_SERVER} \
 			                --build-arg ARTIFACTORY_USER=${conf.ARTIFACTORY_USER} \
 			                --build-arg ARTIFACTORY_PASSWORD=${conf.ARTIFACTORY_PASSWORD} \
-
 			                --build-arg GIT_SERVER=${conf.GIT_SERVER} \
 			                --build-arg GIT_USER=${conf.GIT_USER} \
 			                --build-arg GIT_TOKEN=${conf.GIT_TOKEN} \
