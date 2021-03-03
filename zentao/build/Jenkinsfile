@@ -7,27 +7,6 @@ println env.BUILD_NUMBER
 pipeline {
     agent none
     parameters {
-        string(
-            description: 'Input artifactory user name.',
-            name: 'ARTIFACTORY_USER',
-            defaultValue: 'zenops-user',
-        )
-        string(
-            description: 'Input artifactory user password.',
-            name: 'ARTIFACTORY_PASSWORD',
-            defaultValue: 'P2ssw0rd',
-        )
-        string(
-            description: 'Input Git user name.',
-            name: 'GIT_USER',
-            defaultValue: 'chenqi',
-        )
-        string(
-            description: 'Input Git user password.',
-            name: 'GIT_TOKEN',
-            defaultValue: 'zGx3WjkxphapoG4eeHjP',
-        )
-
     }
 
     stages {
