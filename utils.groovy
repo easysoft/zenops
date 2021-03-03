@@ -10,6 +10,8 @@ def read_yaml_file(yaml_file) {
     data.each {
         println ( it.key + " = " + it.value )
     }
+
+    return data
 }
 
-return this;
+return this
