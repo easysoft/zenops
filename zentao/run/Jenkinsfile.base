@@ -23,7 +23,7 @@ pipeline {
 		    	dir ("zentao/run") {
 			        script {
 			            echo "build base docker image ..."
-			            sh "docker build -f Dockerfile-base \
+			            sh "docker build -f Dockerfile.base \
 			                --rm -t ${conf.SERVER_BASE_IMAGE_NAME} ."
 			        }
 		        }
