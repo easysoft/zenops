@@ -18,15 +18,7 @@ pipeline {
                 }
             }
         }
-        stage("start builder container to compile and package") {
-            steps {
-                echo "start to compile"
 
-                sh "docker pull ${conf.BUILDER_IMAGE_NAME}"
-                sh "docker rm -f zentao-builder"
-                sh "docker run -d --name zentao-builder ${conf.BUILDER_IMAGE_NAME}"
-            }
-        }
 	    stage("build image") {
 		    steps {
 		    	dir ("zentao/run") {

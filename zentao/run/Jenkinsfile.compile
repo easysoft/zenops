@@ -1,0 +1,31 @@
+import hudson.model.*;
+
+pipeline {
+    agent { node { label "build-server" } }
+    stages {
+        stage("init") {
+            steps{
+                script{
+                    model_test = load "utils.groovy"
+                }
+            }
+        }
+        stage("read yaml file") {
+            steps{
+                script{
+                    yaml_file = "conf.yml"
+                    conf = model_test.read_yaml_file(yaml_file)
+                }
+            }
+        }
+        stage("start builder container to compile, package and upload") {
+            steps {
+                echo "start to compile"
+
+                sh "docker pull ${conf.BUILDER_IMAGE_NAME}"
+                sh "docker rm -f zentao-builder"
+                sh "docker run -d --name zentao-builder ${conf.BUILDER_IMAGE_NAME}"
+            }
+        }
+	}
+}
