@@ -31,6 +31,14 @@ pipeline {
     }
 
     stages {
+        stage("init") {
+            agent { node { label 'build-server' } }
+            steps{
+                script{
+                    model_test = load "utils.groovy"
+                }
+            }
+        }
         stage("read yaml file") {
             agent { node { label 'build-server' } }
             steps{
