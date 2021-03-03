@@ -3,10 +3,13 @@ ARTIFACTORY_JCR_SERVER: '192.168.1.161:59082'
 ARTIFACTORY_USER: 'zenops-user'
 ARTIFACTORY_PASSWORD: 'P2ssw0rd'
 
-TOOLS_DOWNLOAD_PATH: 'artifactory/zentaopms/tool'
-
 GIT_SERVER: '192.168.1.161:51080'
 GIT_USER: 'chenqi'
 GIT_TOKEN: 'zGx3WjkxphapoG4eeHjP'
 
 BUILDER_IMAGE_NAME: '192.168.1.161:59082/zenops/zentao-builder:latest'
+SERVER_BASE_IMAGE_NAME: '192.168.1.161:59082/zenops/zentao-server-base:latest'
+SERVER_IMAGE_NAME: '192.168.1.161:59082/zenops/zentao-server:latest'
+
+MYSQL_ROOT_PASSWORD: '123456'
+DOWNLOAD_PATH: 'artifactory/zentaopms'

@@ -1,37 +1,38 @@
 pipeline {
-    agent none
-    parameters {
-        string(
-            description: 'Input artifactory user name.',
-            name: 'ARTIFACTORY_USER',
-            defaultValue: 'zenops-user',
-        )
-        string(
-            description: 'Input artifactory user password.',
-            name: 'ARTIFACTORY_PASSWORD',
-            defaultValue: 'P2ssw0rd',
-        )
-    }
+    agent { node { label "build-server" } }
     stages {
-	    stage('build image') {
-	    	agent { node { label 'build-server' } }
+        stage("init") {
+            steps{
+                script{
+                    model_test = load "utils.groovy"
+                }
+            }
+        }
+        stage("read yaml file") {
+            steps{
+                script{
+                    yaml_file = "conf.yml"
+                    conf = model_test.read_yaml_file(yaml_file)
+                }
+            }
+        }
+	    stage("build image") {
 		    steps {
-		    	dir ('zentao/run') {
+		    	dir ("zentao/run") {
 			        script {
-			            echo 'build base docker image ...'
-			            sh 'docker build -f Dockerfile-base \
-			                --rm -t 192.168.1.161:59082/zenops/zentao-server-base:latest .'
+			            echo "build base docker image ..."
+			            sh "docker build -f Dockerfile-base \
+			                --rm -t ${conf.SERVER_BASE_IMAGE_NAME} ."
 			        }
 		        }
 		    }
 	    }
-	    stage('push image') {
-        agent { node { label 'build-server' } }
+	    stage("push image") {
             steps {
-                echo 'upload docker image ...'
+                echo "upload docker image ..."
 
-                sh 'docker login -u ${ARTIFACTORY_USER} -p ${ARTIFACTORY_PASSWORD} 192.168.1.161:59082'
-                sh 'docker push 192.168.1.161:59082/zenops/zentao-server-base:latest'
+                sh "docker login -u ${ARTIFACTORY_USER} -p ${ARTIFACTORY_PASSWORD} ${conf.ARTIFACTORY_JCR_SERVER}"
+                sh "docker push ${conf.SERVER_BASE_IMAGE_NAME}"
             }
         }
 	}

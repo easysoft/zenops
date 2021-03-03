@@ -1,69 +1,63 @@
 pipeline {
-    agent none
-    parameters {
-        string(
-            description: 'Input mysql root password.',
-            name: 'MYSQL_ROOT_PASSWORD',
-            defaultValue: '123456',
-        )
-        string(
-            description: 'Input artifactory user name.',
-            name: 'ARTIFACTORY_USER',
-            defaultValue: 'zenops-user',
-        )
-        string(
-            description: 'Input artifactory user password.',
-            name: 'ARTIFACTORY_PASSWORD',
-            defaultValue: 'P2ssw0rd',
-        )
-    }
+    agent { node { label "build-server" } }
     stages {
-        stage('start builder container to compile and package') {
-            agent { node { label 'build-server' } }
-            steps {
-                echo 'start to compile'
-
-                sh 'docker pull 192.168.1.161:59082/zenops/zentao-builder:latest'
-                sh 'docker rm -f zentao-builder'
-                sh 'docker run -d --name zentao-builder 192.168.1.161:59082/zenops/zentao-builder:latest'
+        stage("init") {
+            steps{
+                script{
+                    model_test = load "utils.groovy"
+                }
             }
         }
-	    stage('build image') {
-	    	agent { node { label 'build-server' } }
-		    steps {
-		    	dir ('zentao/run') {
-			        script {
-			            echo 'load config'
-			            sh 'wget http://192.168.1.161:58082/artifactory/zentaopms/config/config.zip'
-			            sh 'unzip -o config.zip -d config'
+        stage("read yaml file") {
+            steps{
+                script{
+                    yaml_file = "conf.yml"
+                    conf = model_test.read_yaml_file(yaml_file)
+                }
+            }
+        }
+        stage("start builder container to compile and package") {
+            steps {
+                echo "start to compile"
 
-			            echo 'build docker image ...'
-			            sh 'docker build \
-			                --build-arg MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
-			                --rm -t 192.168.1.161:59082/zenops/zentao-server:latest .'
+                sh "docker pull ${conf.BUILDER_IMAGE_NAME}"
+                sh "docker rm -f zentao-builder"
+                sh "docker run -d --name zentao-builder ${conf.BUILDER_IMAGE_NAME}"
+            }
+        }
+	    stage("build image") {
+		    steps {
+		    	dir ("zentao/run") {
+			        script {
+			            echo "load config"
+			            sh "wget http://${conf.ARTIFACTORY_OSS_SERVER}/${conf.DOWNLOAD_PATH}/config/config.zip"
+			            sh "unzip -o config.zip -d config"
+
+			            echo "build docker image ..."
+			            sh "docker build \
+			                --build-arg MYSQL_ROOT_PASSWORD=${conf.MYSQL_ROOT_PASSWORD} \
+			                --rm -t ${conf.SERVER_IMAGE_NAME} ."
 			        }
 		        }
 		    }
 	    }
-	    stage('push image') {
-        agent { node { label 'build-server' } }
+	    stage("push image") {
             steps {
-                echo 'upload docker image ...'
+                echo "upload docker image ..."
 
-                sh 'docker login -u ${ARTIFACTORY_USER} -p ${ARTIFACTORY_PASSWORD} 192.168.1.161:59082'
-                sh 'docker push 192.168.1.161:59082/zenops/zentao-server:latest'
+                sh "docker login -u ${conf.ARTIFACTORY_USER} -p ${conf.ARTIFACTORY_PASSWORD} ${conf.ARTIFACTORY_JCR_SERVER}"
+                sh "docker push ${conf.SERVER_IMAGE_NAME}"
             }
         }
-	    stage('start container') {
-		    agent { node { label 'build-server' } }
+	    stage("start container") {
 			steps {
-                echo 'start container'
+                echo "start container"
 
-                sh 'docker pull 192.168.1.161:59082/zenops/zentao-server:latest'
-                sh 'docker rm -f zentao-server'
-                sh 'docker run -d --name zentao-server \
+                sh "docker pull ${conf.SERVER_IMAGE_NAME}"
+                sh "docker rm -f zentao-server"
+                sh "docker run -d --name zentao-server \
                         -p 50001:80 \
-                        192.168.1.161:59082/zenops/zentao-server:latest'
+                        ${conf.SERVER_IMAGE_NAME}"
 			}
 	    }
 	}
