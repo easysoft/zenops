@@ -23,7 +23,7 @@ make pms
 
 # upload
 BUILD_NAME=$(ls -l *.zip | awk '{print $NF}')
-curl -v -k -u "$ARTIFACTORY_ACCOUNT"  -T "$BUILD_NAME"  http://192.168.1.161:58082/artifactory/zentaopms/$BUILD_NAME
+curl -v -k -u "$ARTIFACTORY_ACCOUNT" -T "$BUILD_NAME"  http://192.168.1.161:58082/artifactory/zentaopms/$BUILD_NAME
 
 cd $Z_HOME
 

@@ -28,13 +28,15 @@ pipeline {
 		    	dir ('zentao/build') {
 			        script {
 			            echo 'download tools'
-			            sh 'wget -P tool http://${ARTIFACTORY_JCR_SERVER}/${TOOLS_PATH}/yuicompressor.jar'
+			            sh 'wget -P tool http://${conf.ARTIFACTORY_OSS_SERVER}/${conf.TOOLS_DOWNLOAD_PATH}/yuicompressor.jar'
 
 			            echo 'build docker image ...'
 			            sh 'docker build \
-			                --build-arg  ARTIFACTORY_USER=${ARTIFACTORY_USER} \
-			                --build-arg  ARTIFACTORY_PASSWORD=${ARTIFACTORY_PASSWORD} \
-			                --rm -t ${IMAGE_NAME} .'
+			                --build-arg ARTIFACTORY_USER=${conf.ARTIFACTORY_USER} \
+			                --build-arg ARTIFACTORY_PASSWORD=${conf.ARTIFACTORY_PASSWORD} \
+			                --build-arg GIT_USER=${conf.GIT_USER} \
+			                --build-arg GIT_TOKEN=${conf.GIT_TOKEN} \
+			                --rm -t ${conf.BUILDER_IMAGE_NAME} .'
 			        }
 		        }
 		    }
@@ -43,8 +45,8 @@ pipeline {
 			steps {
                 echo 'upload docker image ...'
 
-                sh 'docker login -u ${ARTIFACTORY_USER} -p ${ARTIFACTORY_PASSWORD} ${ARTIFACTORY_JCR_SERVER}'
-                sh 'docker push ${IMAGE_NAME}'
+                sh 'docker login -u ${conf.ARTIFACTORY_USER} -p ${conf.ARTIFACTORY_PASSWORD} ${conf.ARTIFACTORY_JCR_SERVER}'
+                sh 'docker push ${conf.BUILDER_IMAGE_NAME}'
 			}
 	    }
 	}
