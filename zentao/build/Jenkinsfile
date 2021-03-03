@@ -19,46 +19,46 @@ pipeline {
                 script{
                     yaml_file = "conf.yml"
                     conf = model_test.read_yaml_file(yaml_file)
-                    echo conf
-                    echo conf.ARTIFACTORY_OSS_SERVER
-                    ARTIFACTORY_OSS_SERVER = conf.ARTIFACTORY_OSS_SERVER
-                    ARTIFACTORY_USER = conf.ARTIFACTORY_USER
-                    ARTIFACTORY_PASSWORD = conf.ARTIFACTORY_PASSWORD
-                    GIT_SERVER = conf.GIT_SERVER
-                    GIT_USER = conf.GIT_USER
-                    GIT_TOKEN = conf.GIT_TOKEN
-                    BUILDER_IMAGE_NAME = conf.BUILDER_IMAGE_NAME
+                    println conf
+                    println conf.ARTIFACTORY_OSS_SERVER
+//                     ARTIFACTORY_OSS_SERVER = conf.ARTIFACTORY_OSS_SERVER
+//                     ARTIFACTORY_USER = conf.ARTIFACTORY_USER
+//                     ARTIFACTORY_PASSWORD = conf.ARTIFACTORY_PASSWORD
+//                     GIT_SERVER = conf.GIT_SERVER
+//                     GIT_USER = conf.GIT_USER
+//                     GIT_TOKEN = conf.GIT_TOKEN
+//                     BUILDER_IMAGE_NAME = conf.BUILDER_IMAGE_NAME
                 }
             }
         }
 
-	    stage('build image') {
-		    steps {
-		    	dir ('zentao/build') {
-			        script {
-			            echo 'download tools'
-			            sh 'wget -P tool http://${ARTIFACTORY_OSS_SERVER}/${TOOLS_DOWNLOAD_PATH}/yuicompressor.jar'
-
-			            echo 'build docker image ...'
-			            sh 'docker build \
-			                --build-arg ARTIFACTORY_OSS_SERVER=${ARTIFACTORY_OSS_SERVER} \
-			                --build-arg ARTIFACTORY_USER=${ARTIFACTORY_USER} \
-			                --build-arg ARTIFACTORY_PASSWORD=${ARTIFACTORY_PASSWORD} \
-			                --build-arg GIT_SERVER=${GIT_SERVER} \
-			                --build-arg GIT_USER=${GIT_USER} \
-			                --build-arg GIT_TOKEN=${GIT_TOKEN} \
-			                --rm -t ${BUILDER_IMAGE_NAME} .'
-			        }
-		        }
-		    }
-	    }
-	    stage('push image') {
-			steps {
-                echo 'upload docker image ...'
-
-                sh 'docker login -u ${ARTIFACTORY_USER} -p ${ARTIFACTORY_PASSWORD} ${ARTIFACTORY_JCR_SERVER}'
-                sh 'docker push ${BUILDER_IMAGE_NAME}'
-			}
-	    }
+// 	    stage('build image') {
+// 		    steps {
+// 		    	dir ('zentao/build') {
+// 			        script {
+// 			            echo 'download tools'
+// 			            sh 'wget -P tool http://${ARTIFACTORY_OSS_SERVER}/${TOOLS_DOWNLOAD_PATH}/yuicompressor.jar'
+//
+// 			            echo 'build docker image ...'
+// 			            sh 'docker build \
+// 			                --build-arg ARTIFACTORY_OSS_SERVER=${ARTIFACTORY_OSS_SERVER} \
+// 			                --build-arg ARTIFACTORY_USER=${ARTIFACTORY_USER} \
+// 			                --build-arg ARTIFACTORY_PASSWORD=${ARTIFACTORY_PASSWORD} \
+// 			                --build-arg GIT_SERVER=${GIT_SERVER} \
+// 			                --build-arg GIT_USER=${GIT_USER} \
+// 			                --build-arg GIT_TOKEN=${GIT_TOKEN} \
+// 			                --rm -t ${BUILDER_IMAGE_NAME} .'
+// 			        }
+// 		        }
+// 		    }
+// 	    }
+// 	    stage('push image') {
+// 			steps {
+//                 echo 'upload docker image ...'
+//
+//                 sh 'docker login -u ${ARTIFACTORY_USER} -p ${ARTIFACTORY_PASSWORD} ${ARTIFACTORY_JCR_SERVER}'
+//                 sh 'docker push ${BUILDER_IMAGE_NAME}'
+// 			}
+// 	    }
 	}
 }
