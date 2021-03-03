@@ -18,7 +18,7 @@ pipeline {
             steps{
                 script{
                     yaml_file = "conf.yml"
-                    data = model_test.read_yaml_file(yaml_file)
+                    conf = model_test.read_yaml_file(yaml_file)
                 }
             }
         }
@@ -27,25 +27,25 @@ pipeline {
 		    steps {
 		    	dir ('zentao/build') {
 			        script {
-			            echo 'download tools' + data.GIT_USER
-// 			            sh 'wget -P tool http://192.168.1.161:58082/artifactory/zentaopms/tool/yuicompressor.jar'
-//
-// 			            echo 'build docker image ...'
-// 			            sh 'docker build \
-// 			                --build-arg  ARTIFACTORY_USER=${ARTIFACTORY_USER} \
-// 			                --build-arg  ARTIFACTORY_PASSWORD=${ARTIFACTORY_PASSWORD} \
-// 			                --rm -t 192.168.1.161:59082/zenops/zentao-builder:latest .'
+			            echo 'download tools'
+			            sh 'wget -P tool http://${ARTIFACTORY_JCR_SERVER}/${TOOLS_PATH}/yuicompressor.jar'
+
+			            echo 'build docker image ...'
+			            sh 'docker build \
+			                --build-arg  ARTIFACTORY_USER=${ARTIFACTORY_USER} \
+			                --build-arg  ARTIFACTORY_PASSWORD=${ARTIFACTORY_PASSWORD} \
+			                --rm -t ${IMAGE_NAME} .'
 			        }
 		        }
 		    }
 	    }
-// 	    stage('push image') {
-// 			steps {
-//                 echo 'upload docker image ...'
-//
-//                 sh 'docker login -u ${ARTIFACTORY_USER} -p ${ARTIFACTORY_PASSWORD} 192.168.1.161:59082'
-//                 sh 'docker push 192.168.1.161:59082/zenops/zentao-builder:latest'
-// 			}
-// 	    }
+	    stage('push image') {
+			steps {
+                echo 'upload docker image ...'
+
+                sh 'docker login -u ${ARTIFACTORY_USER} -p ${ARTIFACTORY_PASSWORD} ${ARTIFACTORY_JCR_SERVER}'
+                sh 'docker push ${IMAGE_NAME}'
+			}
+	    }
 	}
 }
