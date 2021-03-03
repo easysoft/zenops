@@ -35,7 +35,7 @@ pipeline {
 		    	dir ('zentao/build') {
 			        script {
 			            echo 'download tools'
-			            sh 'wget -P tool http://${conf.ARTIFACTORY_OSS_SERVER}/${conf.TOOLS_DOWNLOAD_PATH}/yuicompressor.jar'
+			            sh 'wget -P tool http://${ARTIFACTORY_OSS_SERVER}/${TOOLS_DOWNLOAD_PATH}/yuicompressor.jar'
 
 			            echo 'build docker image ...'
 			            sh 'docker build \
