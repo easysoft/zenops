@@ -38,7 +38,7 @@ pipeline {
  		    steps {
  		    	dir ('zentao/build') {
  			        script {
- 			            println 'wget -P tool http://${ARTIFACTORY_OSS_SERVER}/${TOOLS_DOWNLOAD_PATH}/yuicompressor.jar'
+ 			            println "wget -P tool http://${ARTIFACTORY_OSS_SERVER}/${TOOLS_DOWNLOAD_PATH}/yuicompressor.jar"
 // 			            echo 'download tools'
 // 			            sh 'wget -P tool http://${ARTIFACTORY_OSS_SERVER}/${TOOLS_DOWNLOAD_PATH}/yuicompressor.jar'
 //
