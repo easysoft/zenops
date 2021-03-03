@@ -5,6 +5,7 @@ ARTIFACTORY_PASSWORD: 'P2ssw0rd'
 
 TOOLS_DOWNLOAD_PATH: 'artifactory/zentaopms/tool'
 
+GIT_SERVER: '192.168.1.161:51080'
 GIT_USER: 'chenqi'
 GIT_TOKEN: 'zGx3WjkxphapoG4eeHjP'
 
