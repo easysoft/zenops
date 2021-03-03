@@ -1,6 +1,6 @@
 import hudson.model.*;
 
-println env.WORKSPACE
+println env.JENKINS_HOME
 println env.JOB_NAME
 println env.BUILD_NUMBER
 
