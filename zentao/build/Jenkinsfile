@@ -34,10 +34,11 @@ pipeline {
             }
         }
 
-// 	    stage('build image') {
-// 		    steps {
-// 		    	dir ('zentao/build') {
-// 			        script {
+ 	    stage('build image') {
+ 		    steps {
+ 		    	dir ('zentao/build') {
+ 			        script {
+ 			            println ARTIFACTORY_OSS_SERVER
 // 			            echo 'download tools'
 // 			            sh 'wget -P tool http://${ARTIFACTORY_OSS_SERVER}/${TOOLS_DOWNLOAD_PATH}/yuicompressor.jar'
 //
@@ -50,10 +51,10 @@ pipeline {
 // 			                --build-arg GIT_USER=${GIT_USER} \
 // 			                --build-arg GIT_TOKEN=${GIT_TOKEN} \
 // 			                --rm -t ${BUILDER_IMAGE_NAME} .'
-// 			        }
-// 		        }
-// 		    }
-// 	    }
+ 			        }
+ 		        }
+ 		    }
+ 	    }
 // 	    stage('push image') {
 // 			steps {
 //                 echo 'upload docker image ...'
@@ -61,6 +62,6 @@ pipeline {
 //                 sh 'docker login -u ${ARTIFACTORY_USER} -p ${ARTIFACTORY_PASSWORD} ${ARTIFACTORY_JCR_SERVER}'
 //                 sh 'docker push ${BUILDER_IMAGE_NAME}'
 // 			}
-// 	    }
+//  	    }
 	}
 }
