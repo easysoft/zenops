@@ -23,7 +23,6 @@ pipeline {
                     ARTIFACTORY_OSS_SERVER = conf.ARTIFACTORY_OSS_SERVER
                     ARTIFACTORY_USER = conf.ARTIFACTORY_USER
                     ARTIFACTORY_PASSWORD = conf.ARTIFACTORY_PASSWORD
-                    TOOLS_DOWNLOAD_PATH = conf.TOOLS_DOWNLOAD_PATH
                     GIT_SERVER = conf.GIT_SERVER
                     GIT_USER = conf.GIT_USER
                     GIT_TOKEN = conf.GIT_TOKEN
@@ -36,7 +35,7 @@ pipeline {
  		    steps {
  		    	dir ('zentao/build') {
  			        script {
- 			            println "wget -P tool http://${ARTIFACTORY_OSS_SERVER}/${TOOLS_DOWNLOAD_PATH}/yuicompressor.jar"
+ 			            println "wget -P tool http://${ARTIFACTORY_OSS_SERVER}/${conf.TOOLS_DOWNLOAD_PATH}/yuicompressor.jar"
 // 			            echo 'download tools'
 // 			            sh 'wget -P tool http://${ARTIFACTORY_OSS_SERVER}/${TOOLS_DOWNLOAD_PATH}/yuicompressor.jar'
 //
