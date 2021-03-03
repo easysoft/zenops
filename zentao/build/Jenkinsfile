@@ -20,6 +20,7 @@ pipeline {
                     yaml_file = "conf.yml"
                     conf = model_test.read_yaml_file(yaml_file)
                     ARTIFACTORY_OSS_SERVER = conf.ARTIFACTORY_OSS_SERVER
+                    echo conf
                     echo ARTIFACTORY_OSS_SERVER
                     ARTIFACTORY_USER = conf.ARTIFACTORY_USER
                     ARTIFACTORY_PASSWORD = conf.ARTIFACTORY_PASSWORD
