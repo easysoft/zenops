@@ -5,13 +5,9 @@ println env.JOB_NAME
 println env.BUILD_NUMBER
 
 pipeline {
-    agent none
-    parameters {
-    }
-
+    agent { node { label 'build-server' } }
     stages {
         stage("init") {
-            agent { node { label 'build-server' } }
             steps{
                 script{
                     model_test = load "utils.groovy"
@@ -19,7 +15,6 @@ pipeline {
             }
         }
         stage("read yaml file") {
-            agent { node { label 'build-server' } }
             steps{
                 script{
                     yaml_file = "conf.yml"
@@ -29,7 +24,6 @@ pipeline {
         }
 
 // 	    stage('build image') {
-// 	    	agent { node { label 'build-server' } }
 // 		    steps {
 // 		    	dir ('zentao/build') {
 // 			        script {
@@ -46,7 +40,6 @@ pipeline {
 // 		    }
 // 	    }
 // 	    stage('push image') {
-// 		    agent { node { label 'build-server' } }
 // 			steps {
 //                 echo 'upload docker image ...'
 //
