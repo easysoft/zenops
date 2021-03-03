@@ -29,6 +29,8 @@ pipeline {
 
 			            echo "build docker image ..."
 			            sh "docker build \
+			                --build-arg ARTIFACTORY_OSS_SERVER=${conf.ARTIFACTORY_OSS_SERVER} \
+			                --build-arg DOWNLOAD_PATH=${conf.DOWNLOAD_PATH} \
 			                --build-arg MYSQL_ROOT_PASSWORD=${conf.MYSQL_ROOT_PASSWORD} \
 			                --rm -t ${conf.SERVER_IMAGE_NAME} ."
 			        }
