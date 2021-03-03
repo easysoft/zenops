@@ -1,6 +1,7 @@
 import hudson.model.*;
 
 println env.JENKINS_HOME
+println env.WORKSPACE
 println env.JOB_NAME
 println env.BUILD_NUMBER
 
@@ -32,16 +33,18 @@ pipeline {
 
     stages {
         stage("init") {
+            agent { node { label 'build-server' } }
             steps{
                 script{
-                    model_test = load env.WORKSPACE + "/pipeline/module/pipeline-demo-module.groovy"
+                    model_test = load env.JENKINS_HOME + "/workspace/pipeline/module/utils.groovy"
                 }
             }
         }
         stage("read yaml file") {
+            agent { node { label 'build-server' } }
             steps{
                 script{
-                    yaml_file = env.WORKSPACE + "/testdata/test.yml"
+                    yaml_file = env.JENKINS_HOME + "/testdata/test.yml"
                     model_test.read_yaml_file(yaml_file)
                     println "=========================="
                     yaml_string = """
