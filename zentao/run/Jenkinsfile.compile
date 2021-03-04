@@ -2,11 +2,6 @@ import hudson.model.*;
 
 pipeline {
     agent { node { label "build-server" } }
-    parameters {
-        gitParameter name: 'tag',
-                     type: 'PT_TAG',
-                     defaultValue: 'zentaopms_15.0.beta1_20210304'
-    }
     stages {
         stage("init") {
             steps{
@@ -27,7 +22,7 @@ pipeline {
             steps {
                 echo "checkout tag"
                 checkout([$class: 'GitSCM',
-                  branches: [[name: "${params.tag}"]],
+                  branches: [[name: "zentaopms_15.0.beta1_20210304"]],
                   doGenerateSubmoduleConfigurations: false,
                   extensions: [],
                   gitTool: 'Default',
