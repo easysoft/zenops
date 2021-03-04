@@ -9,6 +9,7 @@ echo "ARTIFACTORY: $ENV_ARTIFACTORY_USER:$ENV_ARTIFACTORY_PASSWORD@$ENV_ARTIFACT
 echo "start pull codes @ $(date +%T)"
 cd $Z_HOME
 git clone "http://$ENV_GIT_USER:$ENV_GIT_TOKEN@$ENV_GIT_SERVER/root/zentaopms.git"
+cd zentaopms && git checkout entaopms_12.5.2_20201218 && cd..
 echo "end pull codes @ $(date +%T)"
 
 # edit makefile
