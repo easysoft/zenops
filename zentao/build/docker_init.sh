@@ -13,6 +13,7 @@ echo "end pull codes @ $(date +%T)"
 
 # edit makefile
 sed -i '145,148s/^/#&/' $Z_HOME/zentaopms/Makefile
+cat $Z_HOME/zentaopms/Makefile
 
 # make
 cd $Z_HOME/zentaopms
