@@ -4,13 +4,11 @@ export Z_HOME=/z
 
 echo "GIT: $ENV_GIT_USER:$ENV_GIT_TOKEN@$GIT_SERVER"
 echo "ARTIFACTORY: $ENV_ARTIFACTORY_USER:$ENV_ARTIFACTORY_PASSWORD@$ENV_ARTIFACTORY_OSS_SERVER"
-echo "ENV_GIT_TAG: $ENV_GIT_TAG"
 
 # pull codes
 echo "start pull codes @ $(date +%T)"
 cd $Z_HOME
 git clone "http://$ENV_GIT_USER:$ENV_GIT_TOKEN@$ENV_GIT_SERVER/root/zentaopms.git"
-cd zentaopms && git checkout $1 && cd ..
 echo "end pull codes @ $(date +%T)"
 
 # edit makefile
@@ -18,6 +16,7 @@ sed -i '145,148s/^/#&/' $Z_HOME/zentaopms/Makefile
 
 # make
 cd $Z_HOME/zentaopms
+git checkout $1
 make pms
 
 # upload
