@@ -2,6 +2,12 @@ import hudson.model.*;
 
 pipeline {
     agent { node { label "build-server" } }
+    parameters {
+        gitParameter name: 'TAG',
+                     type: 'PT_TAG',
+                     defaultValue: 'zentaopms_15.0.beta1_20210304'
+    }
+
     stages {
         stage("init") {
             steps{
@@ -21,9 +27,17 @@ pipeline {
         stage("start builder container to compile, package and upload") {
             steps {
                 echo "checkout tag"
-                git branch: "zentaopms_15.0.beta1_20210304", url: 'http://192.168.1.161:51080/root/zentaopms.git'
+                checkout([$class: 'GitSCM',
+                  branches: [[name: "${params.TAG}"]],
+                  doGenerateSubmoduleConfigurations: false,
+                  extensions: [],
+                  gitTool: 'Default',
+                  submoduleCfg: [],
+                  userRemoteConfigs: [[url: 'https://github.com/jenkinsci/git-parameter-plugin.git']]
+                ])
 
                 echo "start to compile"
+
                 sh "docker pull ${conf.BUILDER_IMAGE_NAME}"
                 sh "docker rm -f zentao-builder"
                 sh "docker run -d --name zentao-builder ${conf.BUILDER_IMAGE_NAME}"
