@@ -22,6 +22,7 @@ pipeline {
             steps {
                 echo "start to compile"
 
+                git checkout zentaopms_15.0.beta1_20210304
                 sh "docker pull ${conf.BUILDER_IMAGE_NAME}"
                 sh "docker rm -f zentao-builder"
                 sh "docker run -d --name zentao-builder ${conf.BUILDER_IMAGE_NAME}"
