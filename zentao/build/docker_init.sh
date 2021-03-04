@@ -8,7 +8,7 @@ echo "ARTIFACTORY: $ENV_ARTIFACTORY_USER:$ENV_ARTIFACTORY_PASSWORD@$ENV_ARTIFACT
 # pull codes
 echo "start pull codes @ $(date +%T)"
 cd $Z_HOME
-git clone "http://$ENV_GIT_USER:$ENV_GIT_TOKEN@$ENV_GIT_SERVER/root/zentaopms.git"
+git clone --branch $1 "http://$ENV_GIT_USER:$ENV_GIT_TOKEN@$ENV_GIT_SERVER/root/zentaopms.git"
 echo "end pull codes @ $(date +%T)"
 
 # edit makefile
@@ -17,7 +17,6 @@ cat $Z_HOME/zentaopms/Makefile
 
 # make
 cd $Z_HOME/zentaopms
-git checkout $1
 make pms
 
 # upload
