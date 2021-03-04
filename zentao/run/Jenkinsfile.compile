@@ -22,7 +22,6 @@ pipeline {
         stage("start builder container to compile, package and upload") {
             steps {
                 echo "checkout tag"
-                sh "git checkout for_test"
 
                 echo "start to compile"
 
