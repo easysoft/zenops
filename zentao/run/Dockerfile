@@ -22,7 +22,7 @@ COPY config/20-mcrypt.ini /etc/php/7.2/cli/conf.d/
 COPY config/libmcrypt.so.4.4.8 /usr/lib/libmcrypt.so.4
 
 #COPY zentao.zip /tmp/
-ADD http://$ARTIFACTORY_OSS_SERVER/$DOWNLOAD_PATH/ZenTaoPMS.15.0.beta1.zip /tmp/zentao.zip
+ADD http://$ARTIFACTORY_OSS_SERVER/$DOWNLOAD_PATH/ZenTaoPMS.SNAPSHOT.zip /tmp/zentao.zip
 RUN ls -l /tmp/
 COPY config/apache.conf /etc/apache2/sites-enabled/
 RUN mkdir /www

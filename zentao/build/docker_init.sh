@@ -12,6 +12,7 @@ git clone --branch $1 "http://$ENV_GIT_USER:$ENV_GIT_TOKEN@$ENV_GIT_SERVER/root/
 echo "end pull codes @ $(date +%T)"
 
 # edit makefile
+sed -i '1c\VERSION     = SNAPSHOT' $Z_HOME/zentaopms/Makefile
 # IMPORTANT: for master code, using sed -i '145,148s/^/#&/' $Z_HOME/zentaopms/Makefile
 sed -i '143,146s/^/#&/' $Z_HOME/zentaopms/Makefile
 cat $Z_HOME/zentaopms/Makefile
