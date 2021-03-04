@@ -21,9 +21,6 @@ pipeline {
         }
         stage("start builder container to compile, package and upload") {
             steps {
-                echo "checkout tag"
-                sh "git checkout zentaopms_15.0.beta1_20210304"
-
                 echo "start to compile"
 
                 sh "docker pull ${conf.BUILDER_IMAGE_NAME}"
