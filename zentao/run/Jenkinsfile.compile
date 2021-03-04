@@ -3,9 +3,9 @@ import hudson.model.*;
 pipeline {
     agent { node { label "build-server" } }
     parameters {
-        gitParameter name: 'TAG',
-                     type: 'PT_TAG',
-                     defaultValue: 'zentaopms_15.0.beta1_20210304'
+        gitParameter name: 'REVISION',
+                     type: 'PT_REVISION',
+                     defaultValue: '3bf7dd4c'
     }
 
     stages {
@@ -28,12 +28,12 @@ pipeline {
             steps {
                 echo "checkout tag"
                 checkout([$class: 'GitSCM',
-                  branches: [[name: "${params.TAG}"]],
+                  branches: [[name: "${params.REVISION}"]],
                   doGenerateSubmoduleConfigurations: false,
                   extensions: [],
                   gitTool: 'Default',
                   submoduleCfg: [],
-                  userRemoteConfigs: [[url: 'http://192.168.1.161:51080/root/zentaopms.git']]
+                  userRemoteConfigs: [[url: 'https://github.com/jenkinsci/git-parameter-plugin.git']]
                 ])
 
                 echo "start to compile"
