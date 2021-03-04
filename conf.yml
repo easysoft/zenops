@@ -13,3 +13,5 @@ SERVER_IMAGE_NAME: '192.168.1.161:59082/zenops/zentao-server:latest'
 
 MYSQL_ROOT_PASSWORD: '123456'
 DOWNLOAD_PATH: 'artifactory/zentaopms'
+
+GIT_TAG: 'zentaopms_12.5.2_20201218'

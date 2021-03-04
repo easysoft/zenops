@@ -38,6 +38,7 @@ pipeline {
 			                --build-arg GIT_SERVER=${conf.GIT_SERVER} \
 			                --build-arg GIT_USER=${conf.GIT_USER} \
 			                --build-arg GIT_TOKEN=${conf.GIT_TOKEN} \
+			                --build-arg GIT_TAG=${conf.GIT_TAG} \
 			                --rm -t ${conf.BUILDER_IMAGE_NAME} ."
  			        }
  		        }
