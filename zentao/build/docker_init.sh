@@ -4,7 +4,7 @@ export Z_HOME=/z
 
 echo "GIT: $ENV_GIT_USER:$ENV_GIT_TOKEN@$GIT_SERVER"
 echo "ARTIFACTORY: $ENV_ARTIFACTORY_USER:$ENV_ARTIFACTORY_PASSWORD@$ENV_ARTIFACTORY_OSS_SERVER"
-echo "GIT: $ENV_GIT_TAG"
+echo "ENV_GIT_TAG: $ENV_GIT_TAG"
 
 # pull codes
 echo "start pull codes @ $(date +%T)"
