@@ -2,11 +2,6 @@ import hudson.model.*;
 
 pipeline {
     agent { node { label "build-server" } }
-    parameters {
-        gitParameter name: 'REVISION',
-                     type: 'PT_REVISION',
-                     defaultValue: '3bf7dd4c'
-    }
 
     stages {
         stage("init") {
@@ -27,14 +22,7 @@ pipeline {
         stage("start builder container to compile, package and upload") {
             steps {
                 echo "checkout tag"
-                checkout([$class: 'GitSCM',
-                  branches: [[name: "${params.REVISION}"]],
-                  doGenerateSubmoduleConfigurations: false,
-                  extensions: [],
-                  gitTool: 'Default',
-                  submoduleCfg: [],
-                  userRemoteConfigs: [[url: 'https://github.com/jenkinsci/git-parameter-plugin.git']]
-                ])
+                sh "docker checkout build_test"
 
                 echo "start to compile"
 
