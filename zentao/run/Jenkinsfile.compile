@@ -21,7 +21,7 @@ pipeline {
         stage("start builder container to compile, package and upload") {
             steps {
                 echo "checkout tag"
-                git branch: "zentaopms_15.0.beta1_20210304", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'
+                git branch: "zentaopms_15.0.beta1_20210304", url: 'http://192.168.1.161:51080/root/zentaopms.git'
 
                 echo "start to compile"
                 sh "docker pull ${conf.BUILDER_IMAGE_NAME}"
