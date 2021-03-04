@@ -21,17 +21,9 @@ pipeline {
         stage("start builder container to compile, package and upload") {
             steps {
                 echo "checkout tag"
-                checkout([$class: 'GitSCM',
-                  branches: [[name: "zentaopms_15.0.beta1_20210304"]],
-                  doGenerateSubmoduleConfigurations: false,
-                  extensions: [],
-                  gitTool: 'Default',
-                  submoduleCfg: [],
-                  userRemoteConfigs: [[url: 'https://github.com/jenkinsci/git-parameter-plugin.git']]
-                ])
+                git branch: "zentaopms_15.0.beta1_20210304", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'
 
                 echo "start to compile"
-
                 sh "docker pull ${conf.BUILDER_IMAGE_NAME}"
                 sh "docker rm -f zentao-builder"
                 sh "docker run -d --name zentao-builder ${conf.BUILDER_IMAGE_NAME}"
