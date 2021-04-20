@@ -6,6 +6,6 @@ docker run \
   -u 0 \
   -p 58080:8080 \
   -p 50000:50000 \
-  -v /home/ghuser/docker/jenkins:/var/jenkins_home \
+  -v ${ZENOPS_HOME}/docker/jenkins:/var/jenkins_home \
   --restart always \
   jenkins/jenkins
