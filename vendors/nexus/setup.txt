@@ -1,6 +1,7 @@
 export ZENOPS_HOME=/home/z/zenops && echo $ZENOPS_HOME
 rm -rf ${ZENOPS_HOME}/docker/nexus && mkdir -p ${ZENOPS_HOME}/docker/nexus && chmod 666 ${ZENOPS_HOME}/docker/nexus
 
+
 docker run \
     -d --name nexus \
     -p 8081:8081 -p:2020:2020 \
