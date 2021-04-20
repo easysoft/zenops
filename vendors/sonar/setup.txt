@@ -3,7 +3,7 @@ rm -rf ${ZENOPS_HOME}/docker/sonar && mkdir -p ${ZENOPS_HOME}/docker/sonar && ch
 
 docker run \
     -d --name sonar \
-    -p 9000:9000 \
+    -p 59000:9000 \
     -v ${ZENOPS_HOME}/docker/sonar/data:/opt/sonarqube/data \
     -v ${ZENOPS_HOME}/docker/sonar/extensions:/opt/sonarqube/extensions \
     -v ${ZENOPS_HOME}/docker/sonar/logs:/opt/sonarqube/logs \
