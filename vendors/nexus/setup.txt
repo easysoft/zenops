@@ -6,7 +6,7 @@ docker run \
     -p 58081:8081 -p:52020:2020 -p:58082:8082 -p:58083:8083 -p:58084:8084 \
     -v ${ZENOPS_HOME}/docker/nexus/data:/nexus-data \
     --restart=always \
-    sonatype/nexus3
+    my-nexus
 
 # 仓库管理参考 https://zhuanlan.zhihu.com/p/330410597
 # 认证错误参考 https://blog.csdn.net/weixin_42170236/article/details/108994123
@@ -17,12 +17,12 @@ docker pull gitlab/gitlab-ce
 docker pull jenkins/jenkins
 docker pull sonarqube:community
 
-docker tag sonatype/nexus3 127.0.0.1:58083/sonatype/nexus3
-docker tag gitlab/gitlab-ce 127.0.0.1:58083/gitlab/gitlab-ce
-docker tag jenkins/jenkins 127.0.0.1:58083/jenkins/jenkins
-docker tag sonarqube:community 127.0.0.1:58083/sonarqube:community
+docker tag sonatype/nexus3 127.0.0.1:8083/sonatype/nexus3
+docker tag gitlab/gitlab-ce 127.0.0.1:8083/gitlab/gitlab-ce
+docker tag jenkins/jenkins 127.0.0.1:8083/jenkins/jenkins
+docker tag sonarqube:community 127.0.0.1:8083/sonarqube:community
 
-docker pull 127.0.0.1:58083/sonatype/nexus3
-docker pull 127.0.0.1:58083/gitlab/gitlab-ce
-docker pull 127.0.0.1:58083/jenkins/jenkins
-docker pull 127.0.0.1:58083/sonarqube:community
+docker push 127.0.0.1:8083/sonatype/nexus3
+docker push 127.0.0.1:8083/gitlab/gitlab-ce
+docker push 127.0.0.1:8083/jenkins/jenkins
+docker push 127.0.0.1:8083/sonarqube:community
