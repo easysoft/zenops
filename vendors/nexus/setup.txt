@@ -1,9 +1,9 @@
-export ZENOPS_HOME=/home/z/zenops && echo $ZENOPS_HOME
+export ZENOPS_HOME=/Users/aaron/zenops && echo $ZENOPS_HOME
 rm -rf ${ZENOPS_HOME}/docker/nexus && mkdir -p ${ZENOPS_HOME}/docker/nexus && chmod 666 ${ZENOPS_HOME}/docker/nexus
 
 docker run \
     -d --name nexus \
-    -p 58081:8081 -p:52020:2020 \
+    -p 58081:8081 -p:52020:2020 -p:58082:8082 -p:58083:8083 -p:58084:8084 \
     -v ${ZENOPS_HOME}/docker/nexus/data:/nexus-data \
     --restart=always \
     sonatype/nexus3
