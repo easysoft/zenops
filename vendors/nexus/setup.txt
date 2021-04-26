@@ -11,18 +11,20 @@ docker run \
 # 仓库管理参考 https://zhuanlan.zhihu.com/p/330410597
 # 认证错误参考 https://blog.csdn.net/weixin_42170236/article/details/108994123
 
-# 推送镜像
+# 拉取镜像
 docker pull sonatype/nexus3
 docker pull gitlab/gitlab-ce
 docker pull jenkins/jenkins
 docker pull sonarqube:community
 
 # 编辑/etc/hosts，加入 127.0.0.1 local.tester.im
+# 为镜像打上新的标签，名称包含Nexus服务的IP地址和端口
 docker tag sonatype/nexus3 local.tester.im:58083/sonatype/nexus3
 docker tag gitlab/gitlab-ce local.tester.im:58083/gitlab/gitlab-ce
 docker tag jenkins/jenkins local.tester.im:58083/jenkins/jenkins
 docker tag sonarqube:community local.tester.im:58083/sonarqube:community
 
+# 推送镜像到Nexus服务
 docker push local.tester.im:58083/sonatype/nexus3
 docker push local.tester.im:58083/gitlab/gitlab-ce
 docker push local.tester.im:58083/jenkins/jenkins
