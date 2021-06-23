@@ -11,3 +11,11 @@ docker login -u zenops-user -p P2ssw0rd 192.168.1.161:59082
 docker push 192.168.1.161:59082/zenops/zentao-server:latest
 
 curl http://admin:115cbcf425dbdc9639553f4d69a6f6ae3a@192.168.1.161:58080/job/zenops-run/buildWithParameters?MYSQL_ROOT_PASSWORD=123456&ARTIFACTORY_USER=zenops-user&ARTIFACTORY_PASSWORD=P2ssw0rd
+
+docker run --name jihuzentaopms --hostname jihuzentaopms --restart always -d \
+    -v /etc/localtime:/etc/localtime \
+    -p 58000:80 \
+    -v /home/aaron/zentaopms:/www/zentaopms \
+    -v /home/aaron/zentaomysql:/var/lib/mysql \
+    -e MYSQL_ROOT_PASSWORD=zgxIttknlJK6BpzhWMAz \
+    easysoft/zentao:latest
