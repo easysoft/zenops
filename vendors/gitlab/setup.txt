@@ -1,11 +1,30 @@
-export ZENOPS_HOME=/root/work/zenops && echo $ZENOPS_HOME
-rm -rf ${ZENOPS_HOME}/docker/gitlab && mkdir -p ${ZENOPS_HOME}/docker/gitlab && chmod 666 ${ZENOPS_HOME}/docker/gitlab
+export DEVOPS_HOME=/home/aaron/devops && echo $DEVOPS_HOME
+rm -rf ${DEVOPS_HOME}/docker/gitlab && mkdir -p ${DEVOPS_HOME}/docker/gitlab && chmod 666 ${DEVOPS_HOME}/docker/gitlab
 
+注意：后续修改external_url会造成服务运行在51080端口
 docker run \
   -d --name gitlab \
   -p 51080:51080 -p 51022:22 \
-  --volume ${ZENOPS_HOME}/docker/gitlab/config:/etc/gitlab \
-  --volume ${ZENOPS_HOME}/docker/gitlab/logs:/var/log/gitlab \
-  --volume ${ZENOPS_HOME}/docker/gitlab/data:/var/opt/gitlab \
+  --volume ${DEVOPS_HOME}/docker/gitlab/config:/etc/gitlab \
+  --volume ${DEVOPS_HOME}/docker/gitlab/logs:/var/log/gitlab \
+  --volume ${DEVOPS_HOME}/docker/gitlab/data:/var/opt/gitlab \
   --restart always \
   gitlab/gitlab-ce
+
+docker exec -it gitlab bash
+gitlab-rake "gitlab:password:reset"
+
+sudo vi /home/aaron/devops/docker/gitlab/config/gitlab.rb
+修改为external_url 'http://192.168.0.56:51080'
+
+安装runner
+docker run -d --name gitlab-runner --restart always \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v ${DEVOPS_HOME}/docker/gitlab-runner/config:/etc/gitlab-runner \
+  gitlab/gitlab-runner:latest
+
+注册runner
+docker run --rm -it \
+  -v ${DEVOPS_HOME}/docker/gitlab-runner/config:/etc/gitlab-runner \
+  gitlab/gitlab-runner \
+  register

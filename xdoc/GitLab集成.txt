@@ -3,32 +3,31 @@
 2. 左侧CI/CD菜单中的Pipeline，实为构建执行结果的列表；
 3. Pipeline的一次构建执行，结果包含多个Job的结果。
 配置举例：
-	stages:
-	   - build
-	   - deploy
-	   - test
+stages:
+   - build
+   - deploy
+   - test
 
-	build1:
-	   stage: build
-	   script:
-	      - echo "start build1 ..."
+build:
+   stage: build
+   tags:
+      - docker-runner
+   script:
+      - echo "start build ..."
 
-	build2:
-	   stage: build
-	   script:
-	      - echo "start build2 ..."
-	      - mvn clean package test
-	      
-	deploy:
-	   stage: deploy
-	   script:
-	      - echo "start deploy ..."
-	      
-	integration-test:
-	   stage: test
-	   script:
-	      - echo "start integration test ..."
+deploy:
+   stage: deploy
+   tags:
+      - docker-runner
+   script:
+      - echo "start deploy ..."
 
+test:
+   stage: test
+   tags:
+      - docker-runner
+   script:
+      - echo "start test ..."
 
 用户认证：
 方案一，使用GitLab作为OAuth2的认证提供者，集成用户认证和授权；
