@@ -1,0 +1,23 @@
+docker run -i --rm \
+  --name testng-in-docker \
+  -v "$(pwd)":/usr/src/mymaven \
+  -v ~/.m2:/root/.m2 \
+  -w /usr/src/mymaven \
+  maven \
+  mvn clean package
+
+docker run -id --rm --name maven-testng \
+  swr.cn-east-3.myhuaweicloud.com/tester-im/maven-testng:1.0 \
+  bash
+
+docker run -i --rm --name maven-testng \
+  swr.cn-east-3.myhuaweicloud.com/tester-im/maven-testng:1.0 \
+  cd /usr/src/mymaven/ci_test_testng && git pull && mvn clean package
+
+docker exec -it maven-testng /bin/bash
+
+docker commit -m "update" -a "aaron" maven-testng swr.cn-east-3.myhuaweicloud.com/tester-im/maven-testng:1.0
+sudo docker push swr.cn-east-3.myhuaweicloud.com/tester-im/maven-testng:1.0
+
+docker save -o maven-testng.tar maven-testng
+sudo docker tag maven-testng swr.cn-east-3.myhuaweicloud.com/tester-im/maven-testng:1.0
