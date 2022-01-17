@@ -24,5 +24,17 @@ docker exec -it maven-testng /bin/bash
 docker commit -m "update" -a "aaron" maven-testng swr.cn-east-3.myhuaweicloud.com/tester-im/maven-testng:1.0
 sudo docker push swr.cn-east-3.myhuaweicloud.com/tester-im/maven-testng:1.0
 
+docker login --username=aaronchen2k@aliyun.com registry.cn-hangzhou.aliyuncs.com
+docker tag swr.cn-east-3.myhuaweicloud.com/tester-im/maven-testng:1.0 registry.cn-hangzhou.aliyuncs.com/com-deeptest/maven-testng:latest
+docker push registry.cn-hangzhou.aliyuncs.com/com-deeptest/maven-testng:latest
+
+docker run -i --rm --name maven-testng \
+  registry.cn-hangzhou.aliyuncs.com/com-deeptest/maven-testng:latest \
+  sleep 30; rm -rf ci_test_testng; git clone https://gitee.com/ngtesting/ci_test_testng.git; cd ci_test_testng; mvn clean package > logs.txt; sleep 600;
+
+docker run -i --rm --name maven-testng \
+  registry.cn-hangzhou.aliyuncs.com/com-deeptest/maven-testng:latest \
+  sleep 60000
+
 docker save -o maven-testng.tar maven-testng
 sudo docker tag maven-testng swr.cn-east-3.myhuaweicloud.com/tester-im/maven-testng:1.0

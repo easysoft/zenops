@@ -3,12 +3,15 @@ rm -rf ${ZENOPS_HOME}/docker/sonar && mkdir -p ${ZENOPS_HOME}/docker/sonar && ch
 
 docker run \
     -d --name sonar \
-    -p 59000:9000 \
+    -p 59001:9000 \
     -v ${ZENOPS_HOME}/docker/sonar/data:/opt/sonarqube/data \
     -v ${ZENOPS_HOME}/docker/sonar/extensions:/opt/sonarqube/extensions \
     -v ${ZENOPS_HOME}/docker/sonar/logs:/opt/sonarqube/logs \
     --restart=always \
-    sonarqube:community
+    --security-opt seccomp=/root/work/seccomp-profile.json \
+    sonarqube:latest
+
+注：--security-opt seccomp=/root/work/seccomp-profile.json修复docker版本旧的问题
 
  mvn sonar:sonar  \
    -Dsonar.projectKey=ci_test_testng  \
