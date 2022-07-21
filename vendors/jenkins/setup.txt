@@ -9,3 +9,14 @@ docker run \
   -v ${ZENOPS_HOME}/docker/jenkins:/var/jenkins_home \
   --restart always \
   jenkins/jenkins
+
+
+  docker run \
+    -d --name jenkins \
+    -u 0 \
+    -p 58080:8080 \
+    -p 50000:50000 \
+    --restart always \
+    jenkins/jenkins
+
+java -jar agent.jar -jnlpUrl http://127.0.0.1:58080/computer/macbook/jenkins-agent.jnlp -secret a2f18b266947c63995915149cefadc8a1c726ec1e8afbde2892634d72a321d91 -workDir "/Users/aaron/work/devops/jenkins"

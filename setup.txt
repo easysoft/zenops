@@ -14,3 +14,4 @@ docker run -itd --name zenpms -p 53306:3306 registry.cn-shanghai.aliyuncs.com/ng
 docker exec -it 4ea21a32c658 /bin/bash
 
 docker rm -fv `docker ps -a -q`
+
