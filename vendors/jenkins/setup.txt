@@ -10,7 +10,6 @@ docker run \
   --restart always \
   jenkins/jenkins
 
-
   docker run \
     -d --name jenkins \
     -u 0 \

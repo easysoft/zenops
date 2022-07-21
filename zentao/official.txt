@@ -1,13 +1,15 @@
 sudo docker network create --subnet=172.172.172.0/24 zentaonet
 
+mkdir /Users/aaron/work/devops/zentao/www/zentaopms
+mkdir /Users/aaron/work/devops/zentao/www/mysqldata
+
 docker run \
 --name zentao \
 -p 50080:80 \
 --network=zentaonet \
---ip 172.172.172.172 \
+--ip 172.172.172.173 \
 --mac-address 02:42:ac:11:00:00 \
 -v /Users/aaron/work/devops/zentao/www/zentaopms:/www/zentaopms \
 -v /Users/aaron/work/devops/zentao/www/mysqldata:/var/lib/mysql \
 -e MYSQL_ROOT_PASSWORD=P2ssw0rd \
 -d easysoft/zentao:17.3
-
