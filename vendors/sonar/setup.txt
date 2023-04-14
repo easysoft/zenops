@@ -1,14 +1,15 @@
 export ZENOPS_HOME=/home/z/zenops && echo $ZENOPS_HOME
+# export ZENOPS_HOME=/Users/aaron && echo $ZENOPS_HOME
 rm -rf ${ZENOPS_HOME}/docker/sonar && mkdir -p ${ZENOPS_HOME}/docker/sonar && chmod 666 ${ZENOPS_HOME}/docker/sonar
 
 docker run \
-    -d --name sonar \
+    -d --name sonarqube \
     -p 59001:9000 \
     -v ${ZENOPS_HOME}/docker/sonar/data:/opt/sonarqube/data \
     -v ${ZENOPS_HOME}/docker/sonar/extensions:/opt/sonarqube/extensions \
     -v ${ZENOPS_HOME}/docker/sonar/logs:/opt/sonarqube/logs \
     --restart=always \
-    --security-opt seccomp=/root/work/seccomp-profile.json \
+    --security-opt seccomp=~/docker/seccomp-profile.json \
     sonarqube:latest
 
 注：--security-opt seccomp=/root/work/seccomp-profile.json修复docker版本旧的问题

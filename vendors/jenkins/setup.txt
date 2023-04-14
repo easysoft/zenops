@@ -1,11 +1,12 @@
 export ZENOPS_HOME=/home/z/zenops && echo $ZENOPS_HOME
+export ZENOPS_HOME=/home/deeptest/dev && echo $ZENOPS_HOME
 rm -rf ${ZENOPS_HOME}/docker/jenkins && mkdir -p ${ZENOPS_HOME}/docker/jenkins && chmod 666 ${ZENOPS_HOME}/docker/jenkins
 
 docker run \
   -d --name jenkins \
   -u 0 \
-  -p 58080:8080 \
-  -p 50000:50000 \
+  -p 50280:8080 \
+  -p 50200:50000 \
   -v ${ZENOPS_HOME}/docker/jenkins:/var/jenkins_home \
   --restart always \
   jenkins/jenkins
