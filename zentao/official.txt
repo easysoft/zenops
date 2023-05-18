@@ -1,7 +1,10 @@
 sudo docker network create --subnet=172.172.172.0/24 zentaonet
 
-mkdir /Users/aaron/work/devops/zentao/www/zentaopms
-mkdir /Users/aaron/work/devops/zentao/www/mysqldata
+export ZENOPS_HOME=~/zenops && echo $ZENOPS_HOME
+rm -rf ${ZENOPS_HOME}/docker/zentao && mkdir -p ${ZENOPS_HOME}/docker/zentao && chmod 777 ${ZENOPS_HOME}/docker/zentao
+
+mkdir -p ${ZENOPS_HOME}/docker/zentao/www/zentaopms
+mkdir -p ${ZENOPS_HOME}/docker/zentao/www/mysqldata
 
 docker run \
 --name zentao \
@@ -9,7 +12,7 @@ docker run \
 --network=zentaonet \
 --ip 172.172.172.173 \
 --mac-address 02:42:ac:11:00:00 \
--v /Users/aaron/work/devops/zentao/www/zentaopms:/www/zentaopms \
--v /Users/aaron/work/devops/zentao/www/mysqldata:/var/lib/mysql \
+-v ${ZENOPS_HOME}/docker/zentao/www/zentaopms:/www/zentaopms \
+-v ${ZENOPS_HOME}/docker/zentao/www/mysqldata:/var/lib/mysql \
 -e MYSQL_ROOT_PASSWORD=P2ssw0rd \
--d easysoft/zentao:17.3
+-d easysoft/zentao
