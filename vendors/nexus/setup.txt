@@ -1,4 +1,4 @@
-export ZENOPS_HOME=/root/work/zenops && echo $ZENOPS_HOME
+export ZENOPS_HOME=~/zenops && echo $ZENOPS_HOME
 rm -rf ${ZENOPS_HOME}/docker/nexus && mkdir -p ${ZENOPS_HOME}/docker/nexus && chmod 777 ${ZENOPS_HOME}/docker/nexus
 
 docker run \
